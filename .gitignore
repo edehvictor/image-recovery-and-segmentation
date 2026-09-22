@@ -1,0 +1,13 @@
+venv/
+venv313/
+__pycache__/
+*.pyc
+.env
+.vscode/
+
+data/
+datasets/
+
+*.h5
+*.keras
+*.ckpt
