@@ -1,0 +1,6 @@
+{
+  "original_screening": "results/stage4_lr_sensitivity/screening_20261007T094203Z_610c7890",
+  "continuation_screening": "results/stage4_lr_sensitivity/screening_20261007T162706Z_11d37f06",
+  "completed_configurations": 16,
+  "selection_rule": "Lowest best validation MSE; exact ties use smaller learning rate"
+}

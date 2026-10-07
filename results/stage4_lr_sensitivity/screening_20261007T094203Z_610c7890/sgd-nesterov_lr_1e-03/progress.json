@@ -1,0 +1,21 @@
+{
+  "last_attempted_epoch": 50,
+  "last_training_batch": {
+    "epoch": 50,
+    "batch": 167,
+    "metrics": {
+      "loss": 0.00134280975908041,
+      "mse": 0.00134280975908041,
+      "psnr_metric": 28.719934463500977
+    }
+  },
+  "last_validation_batch": {
+    "epoch": 49,
+    "batch": 85,
+    "metrics": {
+      "loss": 0.0013456108281388879,
+      "mse": 0.0013456108281388879,
+      "psnr_metric": 28.71086883544922
+    }
+  }
+}

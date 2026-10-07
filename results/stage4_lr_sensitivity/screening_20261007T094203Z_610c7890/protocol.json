@@ -1,0 +1,435 @@
+{
+  "seed": 42,
+  "image_size": 512,
+  "input_shape": [
+    512,
+    512,
+    1
+  ],
+  "gaussian_mean": 0.0,
+  "gaussian_std": 0.1,
+  "clip_range": [
+    0.0,
+    1.0
+  ],
+  "batch_size": 1,
+  "max_epochs": 50,
+  "patience": 5,
+  "min_delta": 1e-05,
+  "restore_best_weights": true,
+  "optimizers": [
+    "Adam",
+    "Adagrad",
+    "RMSProp",
+    "SGD-Nesterov"
+  ],
+  "learning_rates": [
+    0.0001,
+    0.001,
+    0.01,
+    0.1
+  ],
+  "screening_loss": "MSE",
+  "recovery_losses": [
+    "MSE",
+    "MAE",
+    "Huber"
+  ],
+  "huber_delta": 0.1,
+  "sgd_momentum": 0.9,
+  "sgd_nesterov": true,
+  "screening_fold": 1,
+  "development_samples": 425,
+  "training_samples": 340,
+  "validation_samples": 85,
+  "final_test_id_start": 500,
+  "final_test_id_stop_exclusive": 575,
+  "final_test_samples": 75,
+  "pilot_test_policy": "Retired: never used by revised screening",
+  "final_test_policy": "Reserved for final evaluation after all tuning",
+  "split_archive": "/mnt/c/Users/HP ELITEBOOK 830 G8/Desktop/FINAL YEAR PROJECT/image-recovery-project/results/stage3_cross_validation/data_splits.npz",
+  "development_and_screening_ids_sha256": "b7cca054d0978d0ebeb4a87ab85da4421771e18bdd0fc430e045519ee0a30caf",
+  "initial_weights_sha256": "3d8af7fb3e7d315c2358a71bef8213afa7e6e29217099ad230fe89951a531926",
+  "optimizer_definitions": [
+    {
+      "optimizer": "Adam",
+      "learning_rate": 0.0001,
+      "class": "Adam",
+      "settings": {
+        "name": "adam",
+        "learning_rate": 9.999999747378752e-05,
+        "weight_decay": null,
+        "clipnorm": null,
+        "global_clipnorm": null,
+        "clipvalue": null,
+        "use_ema": false,
+        "ema_momentum": 0.99,
+        "ema_overwrite_frequency": null,
+        "loss_scale_factor": null,
+        "gradient_accumulation_steps": null,
+        "beta_1": 0.9,
+        "beta_2": 0.999,
+        "epsilon": 1e-07,
+        "amsgrad": false
+      }
+    },
+    {
+      "optimizer": "Adam",
+      "learning_rate": 0.001,
+      "class": "Adam",
+      "settings": {
+        "name": "adam_1",
+        "learning_rate": 0.0010000000474974513,
+        "weight_decay": null,
+        "clipnorm": null,
+        "global_clipnorm": null,
+        "clipvalue": null,
+        "use_ema": false,
+        "ema_momentum": 0.99,
+        "ema_overwrite_frequency": null,
+        "loss_scale_factor": null,
+        "gradient_accumulation_steps": null,
+        "beta_1": 0.9,
+        "beta_2": 0.999,
+        "epsilon": 1e-07,
+        "amsgrad": false
+      }
+    },
+    {
+      "optimizer": "Adam",
+      "learning_rate": 0.01,
+      "class": "Adam",
+      "settings": {
+        "name": "adam_2",
+        "learning_rate": 0.009999999776482582,
+        "weight_decay": null,
+        "clipnorm": null,
+        "global_clipnorm": null,
+        "clipvalue": null,
+        "use_ema": false,
+        "ema_momentum": 0.99,
+        "ema_overwrite_frequency": null,
+        "loss_scale_factor": null,
+        "gradient_accumulation_steps": null,
+        "beta_1": 0.9,
+        "beta_2": 0.999,
+        "epsilon": 1e-07,
+        "amsgrad": false
+      }
+    },
+    {
+      "optimizer": "Adam",
+      "learning_rate": 0.1,
+      "class": "Adam",
+      "settings": {
+        "name": "adam_3",
+        "learning_rate": 0.10000000149011612,
+        "weight_decay": null,
+        "clipnorm": null,
+        "global_clipnorm": null,
+        "clipvalue": null,
+        "use_ema": false,
+        "ema_momentum": 0.99,
+        "ema_overwrite_frequency": null,
+        "loss_scale_factor": null,
+        "gradient_accumulation_steps": null,
+        "beta_1": 0.9,
+        "beta_2": 0.999,
+        "epsilon": 1e-07,
+        "amsgrad": false
+      }
+    },
+    {
+      "optimizer": "Adagrad",
+      "learning_rate": 0.0001,
+      "class": "Adagrad",
+      "settings": {
+        "name": "adagrad",
+        "learning_rate": 9.999999747378752e-05,
+        "weight_decay": null,
+        "clipnorm": null,
+        "global_clipnorm": null,
+        "clipvalue": null,
+        "use_ema": false,
+        "ema_momentum": 0.99,
+        "ema_overwrite_frequency": null,
+        "loss_scale_factor": null,
+        "gradient_accumulation_steps": null,
+        "initial_accumulator_value": 0.1,
+        "epsilon": 1e-07
+      }
+    },
+    {
+      "optimizer": "Adagrad",
+      "learning_rate": 0.001,
+      "class": "Adagrad",
+      "settings": {
+        "name": "adagrad_1",
+        "learning_rate": 0.0010000000474974513,
+        "weight_decay": null,
+        "clipnorm": null,
+        "global_clipnorm": null,
+        "clipvalue": null,
+        "use_ema": false,
+        "ema_momentum": 0.99,
+        "ema_overwrite_frequency": null,
+        "loss_scale_factor": null,
+        "gradient_accumulation_steps": null,
+        "initial_accumulator_value": 0.1,
+        "epsilon": 1e-07
+      }
+    },
+    {
+      "optimizer": "Adagrad",
+      "learning_rate": 0.01,
+      "class": "Adagrad",
+      "settings": {
+        "name": "adagrad_2",
+        "learning_rate": 0.009999999776482582,
+        "weight_decay": null,
+        "clipnorm": null,
+        "global_clipnorm": null,
+        "clipvalue": null,
+        "use_ema": false,
+        "ema_momentum": 0.99,
+        "ema_overwrite_frequency": null,
+        "loss_scale_factor": null,
+        "gradient_accumulation_steps": null,
+        "initial_accumulator_value": 0.1,
+        "epsilon": 1e-07
+      }
+    },
+    {
+      "optimizer": "Adagrad",
+      "learning_rate": 0.1,
+      "class": "Adagrad",
+      "settings": {
+        "name": "adagrad_3",
+        "learning_rate": 0.10000000149011612,
+        "weight_decay": null,
+        "clipnorm": null,
+        "global_clipnorm": null,
+        "clipvalue": null,
+        "use_ema": false,
+        "ema_momentum": 0.99,
+        "ema_overwrite_frequency": null,
+        "loss_scale_factor": null,
+        "gradient_accumulation_steps": null,
+        "initial_accumulator_value": 0.1,
+        "epsilon": 1e-07
+      }
+    },
+    {
+      "optimizer": "RMSProp",
+      "learning_rate": 0.0001,
+      "class": "RMSprop",
+      "settings": {
+        "name": "rm_sprop",
+        "learning_rate": 9.999999747378752e-05,
+        "weight_decay": null,
+        "clipnorm": null,
+        "global_clipnorm": null,
+        "clipvalue": null,
+        "use_ema": false,
+        "ema_momentum": 0.99,
+        "ema_overwrite_frequency": null,
+        "loss_scale_factor": null,
+        "gradient_accumulation_steps": null,
+        "rho": 0.9,
+        "momentum": 0.0,
+        "epsilon": 1e-07,
+        "centered": false
+      }
+    },
+    {
+      "optimizer": "RMSProp",
+      "learning_rate": 0.001,
+      "class": "RMSprop",
+      "settings": {
+        "name": "rm_sprop_1",
+        "learning_rate": 0.0010000000474974513,
+        "weight_decay": null,
+        "clipnorm": null,
+        "global_clipnorm": null,
+        "clipvalue": null,
+        "use_ema": false,
+        "ema_momentum": 0.99,
+        "ema_overwrite_frequency": null,
+        "loss_scale_factor": null,
+        "gradient_accumulation_steps": null,
+        "rho": 0.9,
+        "momentum": 0.0,
+        "epsilon": 1e-07,
+        "centered": false
+      }
+    },
+    {
+      "optimizer": "RMSProp",
+      "learning_rate": 0.01,
+      "class": "RMSprop",
+      "settings": {
+        "name": "rm_sprop_2",
+        "learning_rate": 0.009999999776482582,
+        "weight_decay": null,
+        "clipnorm": null,
+        "global_clipnorm": null,
+        "clipvalue": null,
+        "use_ema": false,
+        "ema_momentum": 0.99,
+        "ema_overwrite_frequency": null,
+        "loss_scale_factor": null,
+        "gradient_accumulation_steps": null,
+        "rho": 0.9,
+        "momentum": 0.0,
+        "epsilon": 1e-07,
+        "centered": false
+      }
+    },
+    {
+      "optimizer": "RMSProp",
+      "learning_rate": 0.1,
+      "class": "RMSprop",
+      "settings": {
+        "name": "rm_sprop_3",
+        "learning_rate": 0.10000000149011612,
+        "weight_decay": null,
+        "clipnorm": null,
+        "global_clipnorm": null,
+        "clipvalue": null,
+        "use_ema": false,
+        "ema_momentum": 0.99,
+        "ema_overwrite_frequency": null,
+        "loss_scale_factor": null,
+        "gradient_accumulation_steps": null,
+        "rho": 0.9,
+        "momentum": 0.0,
+        "epsilon": 1e-07,
+        "centered": false
+      }
+    },
+    {
+      "optimizer": "SGD-Nesterov",
+      "learning_rate": 0.0001,
+      "class": "SGD",
+      "settings": {
+        "name": "sgd",
+        "learning_rate": 9.999999747378752e-05,
+        "weight_decay": null,
+        "clipnorm": null,
+        "global_clipnorm": null,
+        "clipvalue": null,
+        "use_ema": false,
+        "ema_momentum": 0.99,
+        "ema_overwrite_frequency": null,
+        "loss_scale_factor": null,
+        "gradient_accumulation_steps": null,
+        "momentum": 0.9,
+        "nesterov": true
+      }
+    },
+    {
+      "optimizer": "SGD-Nesterov",
+      "learning_rate": 0.001,
+      "class": "SGD",
+      "settings": {
+        "name": "sgd_1",
+        "learning_rate": 0.0010000000474974513,
+        "weight_decay": null,
+        "clipnorm": null,
+        "global_clipnorm": null,
+        "clipvalue": null,
+        "use_ema": false,
+        "ema_momentum": 0.99,
+        "ema_overwrite_frequency": null,
+        "loss_scale_factor": null,
+        "gradient_accumulation_steps": null,
+        "momentum": 0.9,
+        "nesterov": true
+      }
+    },
+    {
+      "optimizer": "SGD-Nesterov",
+      "learning_rate": 0.01,
+      "class": "SGD",
+      "settings": {
+        "name": "sgd_2",
+        "learning_rate": 0.009999999776482582,
+        "weight_decay": null,
+        "clipnorm": null,
+        "global_clipnorm": null,
+        "clipvalue": null,
+        "use_ema": false,
+        "ema_momentum": 0.99,
+        "ema_overwrite_frequency": null,
+        "loss_scale_factor": null,
+        "gradient_accumulation_steps": null,
+        "momentum": 0.9,
+        "nesterov": true
+      }
+    },
+    {
+      "optimizer": "SGD-Nesterov",
+      "learning_rate": 0.1,
+      "class": "SGD",
+      "settings": {
+        "name": "sgd_3",
+        "learning_rate": 0.10000000149011612,
+        "weight_decay": null,
+        "clipnorm": null,
+        "global_clipnorm": null,
+        "clipvalue": null,
+        "use_ema": false,
+        "ema_momentum": 0.99,
+        "ema_overwrite_frequency": null,
+        "loss_scale_factor": null,
+        "gradient_accumulation_steps": null,
+        "momentum": 0.9,
+        "nesterov": true
+      }
+    }
+  ],
+  "preflight": {
+    "archive": "/mnt/c/Users/HP ELITEBOOK 830 G8/Desktop/FINAL YEAR PROJECT/image-recovery-project/results/stage3_cross_validation/data_splits.npz",
+    "development_count": 425,
+    "selected_fold": 1,
+    "training_count": 340,
+    "validation_count": 85,
+    "fresh_test_id_range": [
+      500,
+      574
+    ],
+    "fresh_test_development_disjoint": true,
+    "pilot_test_array_loaded": false,
+    "test_images_generated": false,
+    "tensorflow_version": "2.21.0",
+    "optimizer_configurations_instantiated": 16,
+    "model_parameters": 120681,
+    "input_shape": [
+      null,
+      512,
+      512,
+      1
+    ],
+    "output_shape": [
+      null,
+      512,
+      512,
+      1
+    ],
+    "initial_weights_sha256": "3d8af7fb3e7d315c2358a71bef8213afa7e6e29217099ad230fe89951a531926",
+    "deterministic_ops": "enabled",
+    "training_started": false
+  },
+  "lr_selection_rule": "Lowest best validation MSE among completed runs; exact ties use the smaller learning rate",
+  "best_epoch_definition": "First raw minimum validation MSE in completed history",
+  "restored_weights_epoch_definition": "Best val_loss epoch qualifying under min_delta",
+  "divergence_definition": "Non-finite loss, MSE, weights, or invalid restored metric",
+  "stopping_epoch_definition": "Last attempted epoch (0 if fit never entered an epoch)",
+  "completed_epochs_definition": "Number of fully logged epochs; see progress.json for partial epochs",
+  "timing_boundary": "perf_counter around model.fit only",
+  "source_sha256": {
+    "experiment_config.py": "adeab62c6ba50424486dd59c6d4d923338689c0bfb53fa274c53684a3bae494b",
+    "stage4_lr_sensitivity.py": "2790aa254260227a2abbf15d9fc5ddf84e8368602274ccc69208eb3f7198d717",
+    "stage2_unet.py": "ac95c614cb6375c6f8a6588fce9958ddc227823d535adc719d29c93768f61189"
+  }
+}
