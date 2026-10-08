@@ -4,6 +4,15 @@ Default execution performs preflight only. Training requires the explicit --trai
 flag and must be launched only after the user approves the experiment.
 """
 
+# Completed MSE recovery learning-rate screening: documented runner.
+# 
+# Four optimizers and four rates form sixteen configurations on saved Fold 1.
+# This is MSE-only evidence; selected rates have not been established for MAE,
+# Huber, BCE or Dice. Supervisor-directed future selection may be performed for
+# each optimizer-loss pair. The present algorithm and recorded results remain
+# unchanged; default execution checks setup and training requires --train.
+
+
 import argparse
 import csv
 from datetime import datetime, timezone
@@ -22,9 +31,11 @@ import numpy as np
 import experiment_config as config
 
 
+# Store training/validation MSE and PSNR for every fully logged epoch, including failed runs.
 HISTORY_FIELDS = (
     "epoch", "loss", "mse", "psnr_metric", "val_loss", "val_mse", "val_psnr_metric"
 )
+# Keep raw best epoch separate from the epoch of restored weights and last attempted stopping epoch.
 RESULT_FIELDS = (
     "run_id", "optimizer", "learning_rate", "fold", "loss", "run_status",
     "best_epoch", "stopping_epoch", "completed_epochs", "restored_weights_epoch",
@@ -38,6 +49,8 @@ class DivergingRun(RuntimeError):
 
 
 def weights_digest(weights):
+    """Hash array shapes, dtypes and bytes to establish exact initialization identity.
+    """
     digest = hashlib.sha256()
     for weight in weights:
         array = np.ascontiguousarray(weight)
@@ -48,6 +61,11 @@ def weights_digest(weights):
 
 
 def json_safe(value):
+    """Convert arrays, paths and non-finite numbers into explicit JSON-safe values.
+    
+    NaN/Infinity are retained as strings rather than silently discarded or
+    emitted as non-standard JSON numeric literals.
+    """
     if isinstance(value, dict):
         return {str(key): json_safe(item) for key, item in value.items()}
     if isinstance(value, (tuple, list)):
@@ -64,6 +82,8 @@ def json_safe(value):
 
 
 def save_json(path, data):
+    """Write complete JSON through a temporary sibling, then replace the destination.
+    """
     path = Path(path)
     temporary = path.with_suffix(path.suffix + ".tmp")
     temporary.write_text(
@@ -73,6 +93,8 @@ def save_json(path, data):
 
 
 def save_csv(path, fields, rows):
+    """Write named result/history columns and replace the destination atomically.
+    """
     path = Path(path)
     temporary = path.with_suffix(path.suffix + ".tmp")
     with temporary.open("w", newline="", encoding="utf-8") as stream:
@@ -84,6 +106,11 @@ def save_csv(path, fields, rows):
 
 def build_fresh_model(tf):
     # Import this guarded model definition only; never import a pilot runner.
+    """Build the shared compact U-Net after clearing state and resetting seed 42.
+    
+    Only the guarded architecture module is imported; pilot runners are not
+    used as helper modules because some execute training at import time.
+    """
     from stage2_unet import build_unet
 
     tf.keras.backend.clear_session()
@@ -115,6 +142,7 @@ def preflight(archive_path=None):
     except (AttributeError, RuntimeError) as exc:
         determinism = f"unavailable: {type(exc).__name__}: {exc}"
     optimizer_definitions = []
+    # Cross Adam, Adagrad, RMSProp and SGD-Nesterov with 1e-4, 1e-3, 1e-2 and 1e-1.
     for name in config.OPTIMIZERS:
         for learning_rate in config.LEARNING_RATES:
             optimizer = config.make_optimizer(name, learning_rate)
@@ -130,6 +158,7 @@ def preflight(archive_path=None):
         raise ValueError("U-Net input shape differs from the fixed protocol")
     if tuple(model.output_shape[1:]) != config.INPUT_SHAPE:
         raise ValueError("U-Net output shape differs from the fixed protocol")
+    # One independent weight snapshot is shared exactly across all configurations, not merely a common seed.
     initial_weights = [weight.copy() for weight in model.get_weights()]
     if not all(np.all(np.isfinite(weight)) for weight in initial_weights):
         raise ValueError("Initial U-Net weights are non-finite")
@@ -155,6 +184,11 @@ def preflight(archive_path=None):
 
 
 def make_clean_image(tf):
+    """Construct the float32 phantom target with one grayscale channel.
+    
+    This helper is used by the training runner, not lightweight preflight;
+    no test image is constructed by this function.
+    """
     from skimage.data import shepp_logan_phantom
     from skimage.transform import resize
 
@@ -167,9 +201,17 @@ def make_clean_image(tf):
 
 
 def make_screening_dataset(tf, indices, splits, clean_image, training):
+    """Generate only the exact saved Fold 1 training or validation membership.
+    
+    Each ID uses the stateless seed [42, ID]. Training order is reproducibly
+    reshuffled; validation order is fixed. Guards exclude both old pilot
+    holdout IDs and fresh final-test IDs from the screening pipeline.
+    """
     indices = config.require_screening_ids(indices, splits, training)
 
     def create_pair(index):
+        """Generate one deterministic Gaussian-degraded input and the fixed clean target.
+        """
         index = tf.cast(index, tf.int32)
         sample_seed = tf.stack((tf.constant(config.SEED, tf.int32), index))
         noise = tf.random.stateless_normal(
@@ -194,14 +236,31 @@ def make_screening_dataset(tf, indices, splits, clean_image, training):
 
 
 def make_psnr_metric(tf):
+    """Provide a named Keras PSNR metric for normalized validation images.
+    """
     def psnr_metric(y_true, y_pred):
+        """Average per-image PSNR using a maximum normalized intensity of one.
+        
+        PSNR is measured in decibels. Averaging image PSNR is generally different
+        from computing PSNR from the dataset's average MSE.
+        """
         return tf.reduce_mean(tf.image.psnr(y_true, y_pred, max_val=config.PIXEL_MAX))
     return psnr_metric
 
 
 def make_recorder(tf):
+    """Create an in-memory history recorder with non-finite-value failure detection.
+    
+    No callback writes to disk inside the timed fit interval. The callback
+    also tracks the epoch qualifying under min_delta for weight restoration,
+    which may differ from the raw minimum validation-MSE epoch.
+    """
     class RunRecorder(tf.keras.callbacks.Callback):
+        """Track complete/partial progress and signal divergence within one configuration.
+        """
         def __init__(self):
+            """Initialize independent per-run history, batch progress and restored-epoch state.
+            """
             super().__init__()
             self.rows = []
             self.current_epoch = None
@@ -212,18 +271,26 @@ def make_recorder(tf):
 
         @staticmethod
         def scalar_logs(logs):
+            """Convert callback metric scalars into portable Python numeric values.
+            """
             return {key: float(value) for key, value in (logs or {}).items()}
 
         @staticmethod
         def require_finite_error(logs):
+            """Reject non-finite loss/MSE while allowing valid perfect-recovery PSNR limits.
+            """
             for key in ("loss", "mse", "val_loss", "val_mse"):
                 if key in logs and not np.isfinite(logs[key]):
                     raise DivergingRun(f"Non-finite {key}: {logs[key]}")
 
         def on_epoch_begin(self, epoch, logs=None):
+            """Record the one-based last attempted epoch, including an interrupted epoch.
+            """
             self.current_epoch = epoch + 1
 
         def on_train_batch_end(self, batch, logs=None):
+            """Capture training progress and abort only this run if loss/MSE diverges.
+            """
             values = self.scalar_logs(logs)
             self.last_training_batch = {
                 "epoch": self.current_epoch, "batch": batch + 1, "metrics": values
@@ -231,6 +298,8 @@ def make_recorder(tf):
             self.require_finite_error(values)
 
         def on_test_batch_end(self, batch, logs=None):
+            """Capture validation progress and detect non-finite validation errors.
+            """
             values = self.scalar_logs(logs)
             self.last_validation_batch = {
                 "epoch": self.current_epoch, "batch": batch + 1, "metrics": values
@@ -238,6 +307,11 @@ def make_recorder(tf):
             self.require_finite_error(values)
 
         def on_epoch_end(self, epoch, logs=None):
+            """Store a full epoch and track min_delta-qualified validation improvement.
+            
+            Finite model weights are required. The raw best epoch is calculated
+            separately from the complete history when the run is saved.
+            """
             values = self.scalar_logs(logs)
             self.rows.append({"epoch": epoch + 1, **values})
             self.require_finite_error(values)
@@ -249,6 +323,7 @@ def make_recorder(tf):
             validation_loss = values.get("val_loss")
             if validation_loss is None:
                 raise RuntimeError("Training history is missing val_loss")
+            # An improvement smaller than min_delta does not replace restored weights, even if it is a new raw minimum.
             if validation_loss < self.qualified_best_loss - config.MIN_DELTA:
                 self.qualified_best_loss = validation_loss
                 self.restored_weights_epoch = epoch + 1
@@ -257,6 +332,13 @@ def make_recorder(tf):
 
 
 def run_configuration(tf, splits, clean_image, initial_weights, name, lr, directory):
+    """Fit one optimizer/rate from the identical shared initialization.
+    
+    Compilation, data creation, restored-model evaluation and file writing
+    are outside the perf_counter interval. Exceptions become saved statuses
+    so a divergent rate does not discard other runs. History retains actual
+    epochs, raw best validation MSE and the min_delta-qualified restored epoch.
+    """
     directory.mkdir(exist_ok=False)
     recorder = make_recorder(tf)
     model = None
@@ -276,6 +358,7 @@ def run_configuration(tf, splits, clean_image, initial_weights, name, lr, direct
     error_trace = None
     try:
         model = build_fresh_model(tf)
+        # Assign the same initial array values, then verify their shape/dtype/value hash before every fit.
         model.set_weights(initial_weights)
         if weights_digest(model.get_weights()) != initial_hash:
             raise RuntimeError("Model initialization differs from shared initial weights")
@@ -287,11 +370,13 @@ def run_configuration(tf, splits, clean_image, initial_weights, name, lr, direct
         )
         training = make_screening_dataset(tf, splits.training, splits, clean_image, True)
         validation = make_screening_dataset(tf, splits.validation, splits, clean_image, False)
+        # Uniform 50-epoch ceiling, patience 5, min_delta 1e-5 and restore_best_weights=True are empirical rules.
         early_stopping = tf.keras.callbacks.EarlyStopping(
             monitor="val_loss", mode="min", patience=config.EARLY_STOPPING_PATIENCE,
             min_delta=config.MIN_DELTA, restore_best_weights=config.RESTORE_BEST_WEIGHTS,
         )
         # No disk writes are performed by callbacks. Only fit is timed.
+        # Only model.fit is timed, including its validation and callback work; setup/evaluation/saving are outside.
         started = time.perf_counter()
         try:
             model.fit(
@@ -300,6 +385,7 @@ def run_configuration(tf, splits, clean_image, initial_weights, name, lr, direct
             )
         finally:
             row["training_time_seconds"] = time.perf_counter() - started
+        # Measure validation MSE and mean per-image PSNR after EarlyStopping restores its qualified best weights.
         restored = model.evaluate(validation, verbose=0, return_dict=True)
         restored_mse = float(restored["mse"])
         restored_psnr = float(restored["psnr_metric"])
@@ -311,6 +397,7 @@ def run_configuration(tf, splits, clean_image, initial_weights, name, lr, direct
             "validation_psnr": restored_psnr,
             "run_status": "completed",
         })
+    # Record this run's divergence; the outer screen continues rather than abandoning completed configurations.
     except DivergingRun as exc:
         row.update(run_status="diverged", error=str(exc))
         error_trace = traceback.format_exc()
@@ -324,6 +411,7 @@ def run_configuration(tf, splits, clean_image, initial_weights, name, lr, direct
         row["stopping_epoch"] = recorder.current_epoch or 0
         row["completed_epochs"] = len(recorder.rows)
         row["restored_weights_epoch"] = recorder.restored_weights_epoch
+        # The raw minimum comes from complete finite validation-history rows, irrespective of min_delta qualification.
         finite_rows = [r for r in recorder.rows if np.isfinite(r.get("val_mse", np.nan))]
         if finite_rows:
             best = min(finite_rows, key=lambda item: item["val_mse"])
@@ -351,7 +439,15 @@ def run_configuration(tf, splits, clean_image, initial_weights, name, lr, direct
 
 
 def run_screening(preflight_results):
+    """Run the sixteen MSE configurations and save provenance plus aggregate results.
+    
+    This function is called only by the explicitly selected training route.
+    Each invocation uses a new timestamp/UUID directory separate from pilots.
+    Per-optimizer rates minimize raw best validation MSE over completed runs;
+    exact ties choose the smaller rate. No test performance selects a rate.
+    """
     tf, splits, initial_weights, optimizer_definitions, check_report = preflight_results
+    # Unique output directories isolate revised results from all pilot results and prior screening invocations.
     stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
     output = config.LR_RESULTS_ROOT / f"screening_{stamp}_{uuid4().hex[:8]}"
     output.mkdir(parents=True, exist_ok=False)
@@ -386,11 +482,14 @@ def run_screening(preflight_results):
         "machine": platform.machine(),
         "devices": [str(device) for device in tf.config.list_physical_devices()],
     })
+    # Archive only development/Fold 1 membership and initialization; no test images or test metrics are included.
     np.savez(output / "screening_splits.npz", development=splits.development,
              training=splits.training, validation=splits.validation)
+    # Archive only development/Fold 1 membership and initialization; no test images or test metrics are included.
     np.savez(output / "initial_weights.npz",
              **{f"weight_{i:03d}": value for i, value in enumerate(initial_weights)})
     rows = []
+    # Cross Adam, Adagrad, RMSProp and SGD-Nesterov with 1e-4, 1e-3, 1e-2 and 1e-1.
     for name in config.OPTIMIZERS:
         for lr in config.LEARNING_RATES:
             run_id = f"{name.lower()}_lr_{lr:.0e}"
@@ -405,7 +504,9 @@ def run_screening(preflight_results):
             if interrupted:
                 print(f"Experiment interrupted. Partial results saved in {output}")
                 return 130
+    # Choose each optimizer's MSE-screening rate from completed validation runs only; this is not a universal optimum.
     selections = {}
+    # Cross Adam, Adagrad, RMSProp and SGD-Nesterov with 1e-4, 1e-3, 1e-2 and 1e-1.
     for name in config.OPTIMIZERS:
         candidates = [r for r in rows if r["optimizer"] == name
                       and r["run_status"] == "completed"
@@ -422,6 +523,8 @@ def run_screening(preflight_results):
 
 
 def main(argv=None):
+    """Choose lightweight preflight by default and require --train for the fitting route.
+    """
     parser = argparse.ArgumentParser(description=__doc__)
     mode = parser.add_mutually_exclusive_group()
     mode.add_argument("--check-only", action="store_true", help="Lightweight preflight only (default)")
@@ -429,6 +532,7 @@ def main(argv=None):
     args = parser.parse_args(argv)
     try:
         checks = preflight()
+        # The default and --check-only routes return before any model.fit or result-directory creation.
         if not args.train:
             print("Preflight complete. No training started and no result files created.")
             return 0

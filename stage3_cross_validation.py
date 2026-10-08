@@ -1,3 +1,14 @@
+"""Historical five-fold MSE recovery pilot and final pilot refits.
+
+Sample IDs specify repeatable noise realizations of one clean phantom, not
+different anatomical images. The 425 development IDs are partitioned into
+five 340/85 folds; the original 75 pilot test IDs were evaluated here and are
+retired from the revised experiment. This pilot uses three optimizers, plain
+SGD, at most 10 epochs and patience 2. Revised settings belong to Stage 4;
+none of this pilot's methods or saved numerical results is changed. Execution
+at module level includes training, evaluation and writing existing outputs.
+"""
+
 import os
 import csv
 import gc
@@ -30,6 +41,7 @@ N_FOLDS = 5
 
 BATCH_SIZE = 1
 
+# Pilot stopping controls are intentionally retained; Stage 4's 50/5 controls are different.
 MAX_EPOCHS = 10
 EARLY_STOPPING_PATIENCE = 2
 
@@ -95,6 +107,12 @@ print(
 
 def create_noisy_pair(index):
 
+    """Map a sample ID to its repeatable noisy input and shared clean target.
+    
+    The stateless seed [42, sample_id] fixes that ID's Gaussian realization.
+    Noise has mean zero and standard deviation 0.1 before clipping; clipping
+    changes the effective error distribution near intensity limits.
+    """
     index = tf.cast(index, tf.int32)
 
     sample_seed = tf.stack([
@@ -127,6 +145,12 @@ def create_noisy_pair(index):
 
 def make_dataset(indices, training=False):
 
+    """Create a memory-controlled pipeline of paired images from integer IDs.
+    
+    Only training traversal is shuffled. Pair generation is deterministic per
+    ID, batches contain one sample, and prefetching is limited to one batch.
+    Membership is supplied by the caller rather than selected from metrics.
+    """
     dataset = tf.data.Dataset.from_tensor_slices(
         np.asarray(indices, dtype=np.int32)
     )
@@ -159,6 +183,11 @@ def make_dataset(indices, training=False):
 
 def psnr_metric(y_true, y_pred):
 
+    """Average per-image PSNR using a maximum normalized intensity of one.
+    
+    PSNR is measured in decibels. Averaging image PSNR is generally different
+    from computing PSNR from the dataset's average MSE.
+    """
     psnr = tf.image.psnr(
         y_true,
         y_pred,
@@ -174,6 +203,11 @@ def psnr_metric(y_true, y_pred):
 
 def get_optimizer(name):
 
+    """Instantiate the original pilot optimizer at its original learning rate.
+    
+    SGD is plain SGD at 0.01; RMSProp and Adam use 0.001. No Adagrad or
+    Nesterov setting is introduced into this historical pilot.
+    """
     if name == "SGD":
 
         return tf.keras.optimizers.SGD(
@@ -222,10 +256,12 @@ shuffled_indices = rng.permutation(
 )
 
 
+# The first 75 shuffled IDs form the exposed pilot holdout, retired from revised final testing.
 test_indices = shuffled_indices[
     :TEST_SAMPLES
 ]
 
+# The remaining 425 IDs are the saved development pool reused by revised screening.
 cv_indices = shuffled_indices[
     TEST_SAMPLES:
 ]
@@ -241,6 +277,7 @@ print("Final test samples:", len(test_indices))
 # CREATE THE FIVE FOLDS ONCE
 # ============================================================
 
+# Construct the five folds once; all optimizers reuse identical fold membership.
 kfold = KFold(
     n_splits=N_FOLDS,
     shuffle=True,
@@ -250,6 +287,7 @@ kfold = KFold(
 
 folds = []
 
+# KFold returns positions in the development array; map them back to sample IDs.
 for train_positions, val_positions in kfold.split(cv_indices):
 
     fold_train_indices = cv_indices[
@@ -287,6 +325,7 @@ for fold_number, (train_idx, val_idx) in enumerate(
 # SAVE DATA SPLITS
 # ============================================================
 
+# Persist membership for reproducibility; Stage 4 reads only development and selected fold keys.
 split_data = {
     "test_indices": test_indices,
     "cv_indices": cv_indices
@@ -314,6 +353,7 @@ np.savez(
 # CALCULATE NOISY TEST-SET BASELINE
 # ============================================================
 
+# This baseline and later pilot evaluations expose the old holdout; they are historical evidence.
 test_dataset = make_dataset(
     test_indices,
     training=False
@@ -387,6 +427,7 @@ optimizer_summaries = []
 # CROSS-VALIDATION
 # ============================================================
 
+# Compare original pilot optimizers under MSE; no optimizer-loss factorial study is completed here.
 for optimizer_name in OPTIMIZERS:
 
     print()
@@ -443,6 +484,7 @@ for optimizer_name in OPTIMIZERS:
         # ON THE SAME FOLD
         # ----------------------------------------------------
 
+        # Reset the same fold-specific seed for each optimizer; preserve this historical initialization policy.
         fold_seed = SEED + fold_number
 
         tf.keras.utils.set_random_seed(
@@ -504,6 +546,7 @@ for optimizer_name in OPTIMIZERS:
         # EARLY STOPPING
         # ----------------------------------------------------
 
+        # Validation controls stopping and restored weights; test performance is not the stopping criterion.
         early_stopping = (
             tf.keras.callbacks.EarlyStopping(
                 monitor="val_loss",
@@ -748,6 +791,7 @@ for optimizer_name in OPTIMIZERS:
     )
 
 
+    # Historical final refit uses rounded mean best epochs; do not relabel it as the future median rule.
     recommended_epochs = max(
 
         1,
@@ -845,6 +889,7 @@ for optimizer_name in OPTIMIZERS:
     )
 
 
+    # Refit on all 425 development IDs using pilot-selected epochs; never rerun while preparing submission.
     final_model.fit(
 
         final_train_dataset,
@@ -861,6 +906,7 @@ for optimizer_name in OPTIMIZERS:
     # FINAL TEST
     # ========================================================
 
+    # Report this as exposed-pilot test performance, not performance on fresh IDs 500--574.
     test_results = final_model.evaluate(
         test_dataset,
         verbose=0,
@@ -902,6 +948,7 @@ for optimizer_name in OPTIMIZERS:
     # SAVE FINAL MODEL WEIGHTS
     # ========================================================
 
+    # Existing optimizer-specific checkpoint names would be overwritten by rerunning the pilot.
     final_model.save_weights(
 
         os.path.join(
@@ -918,6 +965,7 @@ for optimizer_name in OPTIMIZERS:
     # SAVE ONE RECOVERY EXAMPLE
     # ========================================================
 
+    # All pilot panels use the first old-test sample under the same deterministic image generator.
     for noisy_batch, clean_batch in test_dataset.take(1):
 
         predicted_batch = final_model.predict(
@@ -1080,6 +1128,7 @@ with open(
 
     writer.writeheader()
 
+    # CSV rows preserve each completed fold's metrics and timing; figures are supplementary evidence.
     writer.writerows(
         all_fold_results
     )
@@ -1119,6 +1168,7 @@ with open(
 
     writer.writeheader()
 
+    # CSV rows preserve each completed fold's metrics and timing; figures are supplementary evidence.
     writer.writerows(
         optimizer_summaries
     )

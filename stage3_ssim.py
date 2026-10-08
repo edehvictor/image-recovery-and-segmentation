@@ -1,3 +1,13 @@
+"""Historical structural-similarity evaluation of saved pilot recovery weights.
+
+SSIM compares local luminance, contrast and structure, complementing pixel
+MSE. Higher SSIM indicates greater similarity; negative values are possible.
+The normalized dynamic range is one: TensorFlow expresses this as max_val=1
+(the corresponding scikit-image parameter would be data_range=1). The script
+recreates the exposed pilot holdout and prints results; it neither trains nor
+provides evaluation of the revised fresh test IDs 500--574.
+"""
+
 import os
 import numpy as np
 import tensorflow as tf
@@ -51,6 +61,7 @@ shuffled_indices = rng.permutation(
     all_indices
 )
 
+# Reconstruct the original pilot holdout, not the new reserved final-test IDs.
 test_indices = shuffled_indices[
     :TEST_SAMPLES
 ]
@@ -62,6 +73,12 @@ test_indices = shuffled_indices[
 
 def create_noisy_pair(index):
 
+    """Map a sample ID to its repeatable noisy input and shared clean target.
+    
+    The stateless seed [42, sample_id] fixes that ID's Gaussian realization.
+    Noise has mean zero and standard deviation 0.1 before clipping; clipping
+    changes the effective error distribution near intensity limits.
+    """
     index = tf.cast(index, tf.int32)
 
     sample_seed = tf.stack([
@@ -100,11 +117,13 @@ test_dataset = (
 # BASELINE SSIM
 # ------------------------------------------------------------
 
+# Evaluate noisy-input structural similarity as a historical comparison baseline.
 baseline_ssim = []
 
 
 for noisy, clean in test_dataset:
 
+    # Use normalized dynamic range one (TensorFlow max_val=1.0, analogous to data_range=1).
     value = tf.image.ssim(
         clean,
         noisy,
@@ -147,6 +166,7 @@ for optimizer_name in optimizers:
         f"{optimizer_name}_final.weights.h5"
     )
 
+    # Reuse an existing pilot checkpoint; no optimizer or fitting operation is required for SSIM inference.
     model.load_weights(
         weights_path
     )
@@ -161,6 +181,7 @@ for optimizer_name in optimizers:
             training=False
         )
 
+        # Use normalized dynamic range one (TensorFlow max_val=1.0, analogous to data_range=1).
         value = tf.image.ssim(
             clean,
             prediction,
@@ -176,6 +197,7 @@ for optimizer_name in optimizers:
         ssim_values
     )
 
+    # ddof=1 reports sample standard deviation across the 75 old holdout images.
     std_ssim = np.std(
         ssim_values,
         ddof=1

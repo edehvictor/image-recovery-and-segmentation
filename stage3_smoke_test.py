@@ -1,3 +1,11 @@
+"""Historical one-epoch recovery smoke test using Adam and MSE.
+
+The 32 training and 8 validation IDs provide a small pipeline diagnostic,
+not the final sample sizes or a cross-validation experiment. This unguarded
+pilot runner trains when executed or imported; do not import it for utilities.
+Saved figures and all experimental settings are retained unchanged.
+"""
+
 import os
 import time
 
@@ -26,6 +34,7 @@ BATCH_SIZE = 1
 
 # This is ONLY a quick test.
 # These are NOT the final experimental sample sizes.
+# Small independent pipeline check; these counts are not the project's development/test split.
 SMOKE_TRAIN_SAMPLES = 32
 SMOKE_VAL_SAMPLES = 8
 
@@ -92,9 +101,16 @@ clean_image = tf.constant(
 
 def create_noisy_pair(index):
 
+    """Map a sample ID to its repeatable noisy input and shared clean target.
+    
+    The stateless seed [42, sample_id] fixes that ID's Gaussian realization.
+    Noise has mean zero and standard deviation 0.1 before clipping; clipping
+    changes the effective error distribution near intensity limits.
+    """
     index = tf.cast(index, tf.int32)
 
     # Each index gets its own deterministic random seed.
+    # Identity is tied to the sample ID, so shuffled traversal does not change its noisy image.
     sample_seed = tf.stack([
         tf.constant(SEED, dtype=tf.int32),
         index
@@ -125,6 +141,12 @@ def create_noisy_pair(index):
 
 def make_dataset(indices, training=False):
 
+    """Create a memory-controlled pipeline of paired images from integer IDs.
+    
+    Only training traversal is shuffled. Pair generation is deterministic per
+    ID, batches contain one sample, and prefetching is limited to one batch.
+    Membership is supplied by the caller rather than selected from metrics.
+    """
     dataset = tf.data.Dataset.from_tensor_slices(
         indices
     )
@@ -194,6 +216,11 @@ print("Smoke-test validation images:",
 
 def psnr_metric(y_true, y_pred):
 
+    """Average per-image PSNR using a maximum normalized intensity of one.
+    
+    PSNR is measured in decibels. Averaging image PSNR is generally different
+    from computing PSNR from the dataset's average MSE.
+    """
     psnr_values = tf.image.psnr(
         y_true,
         y_pred,
@@ -216,6 +243,7 @@ model = build_unet(
 # OPTIMIZER
 # ============================================================
 
+# Retain the historical Adam learning rate 0.001 and MSE objective unchanged.
 optimizer = tf.keras.optimizers.Adam(
     learning_rate=0.001
 )
@@ -252,9 +280,11 @@ print()
 # TRAIN MODEL
 # ============================================================
 
+# Historical wall-clock timing is retained; the revised runner uses perf_counter instead.
 start_time = time.time()
 
 
+# This top-level training operation is documented only; annotation/validation never executes it.
 history = model.fit(
 
     train_dataset,
@@ -305,6 +335,7 @@ for metric_name, metric_value in validation_results.items():
 # RECOVER ONE VALIDATION IMAGE
 # ============================================================
 
+# Use the first validation pair for the saved smoke-test visualization, not for parameter selection.
 for noisy_batch, clean_batch in val_dataset.take(1):
 
     prediction = model.predict(
