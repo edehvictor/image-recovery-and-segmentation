@@ -1,0 +1,26 @@
+Submission validation — 8 October 2026
+
+Syntax-only interpreter: C:\Python314\python.exe (Python 3.14.5)
+Checks performed without importing or executing project scripts:
+experiment_config.py: syntax PASS; executable AST unchanged after removal of documentation strings; package copy identical.
+stage1_phantom.py: syntax PASS; executable AST unchanged after removal of documentation strings; package copy identical.
+stage2_unet.py: syntax PASS; executable AST unchanged after removal of documentation strings; package copy identical.
+stage3_smoke_test.py: syntax PASS; executable AST unchanged after removal of documentation strings; package copy identical.
+stage3_cross_validation.py: syntax PASS; executable AST unchanged after removal of documentation strings; package copy identical.
+stage3_adam_diagnostic.py: syntax PASS; executable AST unchanged after removal of documentation strings; package copy identical.
+stage3_ssim.py: syntax PASS; executable AST unchanged after removal of documentation strings; package copy identical.
+stage4_lr_sensitivity.py: syntax PASS; executable AST unchanged after removal of documentation strings; package copy identical.
+
+Existing saved result files unchanged by SHA-256: 112.
+Five distinct segmentation JPEGs included: PASS.
+Five requested phantom/recovery PNGs included: PASS.
+Previous article preserved; new DOCX and PDF created: PASS.
+Native editable Word equations: 23.
+PDF pages: 13; every page visually inspected: PASS.
+No model.fit, training, cross-validation, model inference, noise regeneration or new numerical experiment occurred.
+No experimental numerical results were invented or altered.
+No GitHub push occurred.
+
+DOCX content and 23 native editable equations were structurally checked. Canonical DOCX rendering was attempted and failed because LibreOffice soffice.exe is unavailable; Word pagination is not visually verified. The accompanying PDF was independently typeset from the same content, and all 13 pages were visually verified. Use the PDF for the reviewed page layout; check the DOCX in Word before relying on its pagination.
+
+Future scientific work: MAE/Huber rate selection, full recovery optimizer-loss comparisons, fresh final-test evaluation, and all segmentation computation remain outstanding. Exact segmentation image-mask identities must be verified before training. The old repository context describes an earlier optimizer-wide MSE rate plan; the article and this submission explicitly record the supervisor-directed future pair-specific selection. Completed scripts/results were not changed to enact that future plan.

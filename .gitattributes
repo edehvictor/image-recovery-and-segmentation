@@ -1,0 +1,6 @@
+# Preserve document and figure bytes when recording submission snapshots.
+*.pdf binary
+*.docx binary
+*.png binary
+*.jpeg binary
+*.jpg binary

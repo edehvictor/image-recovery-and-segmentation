@@ -10,3 +10,8 @@ Independent student verification of the new code and computational results is pe
 ## 8 October 2026 supervisor submission
 
 OpenAI Codex assisted with comments/docstrings in the eight requested Python files, manuscript revision and mathematical typesetting, primary-source convergence-reference checking, image organization and ZIP preparation. Saved numerical experiment records were reused without rerunning training or evaluation. Agent verification: syntax compilation, executable-AST comparison excluding docstrings, matching source copies, duplicate-image hashes, and SHA-256 preservation of all 112 saved result files. Student independent verification of this manuscript revision has not been asserted. The original proposal's recovery and segmentation scope is retained; unfinished comparisons and segmentation computations are labelled outstanding. No GitHub push was made.
+
+
+## 9 October 2026 repository submission archive
+
+OpenAI Codex audited Git status and confirmed that commit ddf5079 already contains the eight source annotations and the 8 October assistance record. The previously untracked dated submission folder is being committed as an immutable submission snapshot, including the revised DOCX/PDF article, five distinct segmentation references, saved recovery figures, supporting result copies and submission notes. Generated submission ZIPs are ignored because the folder records their contents. Agent repeated syntax-only compilation, executable-AST comparison excluding docstrings, matching code-copy checks, and SHA-256 checks for all 112 existing saved result files; all passed. No training, model inference, noise generation or new experimental evaluation was performed. Independent student verification of this repository audit is not asserted.

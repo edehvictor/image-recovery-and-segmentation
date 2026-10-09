@@ -11,3 +11,6 @@ datasets/
 *.h5
 *.keras
 *.ckpt
+
+# Generated submission archives duplicate the tracked dated submission folder.
+/Edeh_Victor_Chinomso*Submission*.zip
