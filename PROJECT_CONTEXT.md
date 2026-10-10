@@ -4,7 +4,7 @@ This file is the authoritative context for coding and experimental work on the f
 
 ## Project Title
 
-Comparative Analysis of Selected Optimizers and Loss Functions for Deep Learning-Based Image Recovery and Medical Image Segmentation
+Comparative Analysis of Selected Optimization Algorithms and Loss Functions for Deep Learning-Based Image Recovery and Medical Image Segmentation
 
 ## Project Structure
 
@@ -31,7 +31,9 @@ Completed:
 
 The existing recovery results are preliminary and must not be presented as final results.
 
-Revised setup (6 October 2026): the replacement test-set decision, fixed configuration, and LR-screening script are prepared. Syntax/import and saved-split checks passed without training. The current `venv313` TensorFlow import fails because `tensorflow.python` is missing, so optimizer instantiation and fresh U-Net construction remain pending. The 16-run experiment has not started and requires explicit user approval.
+The completed Stage 4 MSE recovery learning-rate screen contains 16 completed configurations, archived under `results/stage4_lr_sensitivity/combined_final_lr_screening/` with provenance linking the two 7 October screening sessions. Preserve these results; MSE screening will not be rerun. This single-fold screening is selection evidence, not the final optimizer-loss comparison.
+
+On 10 October 2026, `stage5_loss_lr_screening.py` was created for the remaining MAE and Huber learning-rate screens. Syntax and WSL check-only preflight passed using `/home/devnomso/fyp-tensorflow/bin/python` (Python 3.13.16, TensorFlow 2.21.0). No Stage 5 training has started; the 32 runs require separate explicit approval. The earlier Windows `venv313` failure is historical and does not describe this verified WSL runtime.
 
 The pilot experiment revealed methodological issues that must be corrected:
 
@@ -179,9 +181,7 @@ Do not describe the final SGD experiment as plain SGD.
 
 ## Learning-Rate Sensitivity Study
 
-Before the optimizer-loss comparison, perform a learning-rate sensitivity experiment.
-
-Keep the loss fixed as:
+Stage 4 completed a learning-rate sensitivity experiment before the main optimizer-loss comparison. Its fixed screening loss was:
 
 MSE
 
@@ -210,7 +210,7 @@ Select the suitable learning rate for each optimizer using validation performanc
 
 Do not use the test set for learning-rate selection.
 
-After selection, freeze the chosen learning rate for each optimizer before the loss-function experiment.
+The Stage 4 selected rates apply to the MSE objective only. The supervisor-directed extension selects learning rates separately for each optimizer-loss pair. Preserve the completed MSE choices; screen MAE and Huber separately in Stage 5, then freeze each pair's selected rate before the main comparison.
 
 ---
 
@@ -230,17 +230,29 @@ The optimizer-loss experiment therefore contains:
 
 4 optimizers x 3 losses = 12 configurations
 
-The selected learning rate for an optimizer must remain fixed when comparing its three loss functions.
+Select and freeze one learning rate separately for each optimizer-loss pair using validation data only. For example, RMSProp + MSE, RMSProp + MAE and RMSProp + Huber may use different selected rates. The completed MSE screen is retained; Stage 5 supplies the remaining MAE/Huber rate selections.
 
-Example:
+Within a pair, choose the smallest raw best validation loss among completed valid runs, breaking exact ties with the smaller learning rate. Do not compare MAE and Huber loss magnitudes to rank the two objectives. Use common recovery metrics for later cross-loss performance comparisons.
 
-If RMSProp is assigned learning rate η*, then:
+---
 
-RMSProp + MSE
-RMSProp + MAE
-RMSProp + Huber
+## Stage 5: MAE/Huber Learning-Rate Screening
 
-must all use the same η*.
+Created and checked on 10 October 2026; training has not started.
+
+- Losses: MAE and Huber (delta 0.1), through the unchanged `experiment_config.make_loss` constructors.
+- Grid: Adam, Adagrad, RMSProp and SGD-Nesterov x two losses x four learning rates (1e-4, 1e-3, 1e-2, 1e-1) = 32 runs and eight optimizer-loss pairs. MSE is excluded.
+- SGD retains momentum 0.9 and nesterov=True. All remaining protocol constants, the saved 425 development IDs, Fold 1's 340/85 membership/order and the compact 120681-parameter U-Net are unchanged.
+- One canonical model weight set is built in preflight, copied to every fresh run and verified before fit. Initialization SHA-256 verified in WSL: `3d8af7fb3e7d315c2358a71bef8213afa7e6e29217099ad230fe89951a531926`. Saved development/Fold 1 SHA-256: `b7cca054d0978d0ebeb4a87ab85da4421771e18bdd0fc430e045519ee0a30caf`.
+- Deterministic TensorFlow operations were enabled. Preflight instantiated all 32 optimizer-loss-LR configurations and the raw-best/stopping callbacks, built one U-Net with input/output `(None, 512, 512, 1)`, and performed no fit, inference, dataset construction or noise generation.
+- EarlyStopping monitors val_loss with mode=min, patience=5, min_delta=1e-5 and restore_best_weights=False. The separate raw-minimum callback selects the first strictly smallest val_loss and retains its weights without a min_delta threshold. After fit, best epoch, best loss, validation metrics and saved model weights all refer to that raw-best epoch.
+- Restored validation metrics: MSE, RMSE, NRMSE%=100*RMSE, mean per-image PSNR (max_val=1), and mean per-image scikit-image SSIM (data_range=1, window 7, uniform weights/sample covariance). These metrics have not been computed for Stage 5 yet.
+- Only `model.fit` is timed with time.perf_counter; setup, disk writing and post-fit evaluation are excluded. In-fit validation and in-memory callback work are included.
+- Non-finite loss, validation loss, MSE or model weights mark an individual run as diverged. Other per-run failures are recorded and do not discard completed work.
+- New outputs use `results/stage5_loss_lr_screening/screening_<UTC timestamp>_<short id>/`. Check-only creates no experiment directory. Training saves protocol/preflight/environment metadata, canonical model arrays, development/Fold 1 arrays, per-attempt full histories, raw-best model arrays/checksums and run records. Final/updated summaries: all_runs.csv, all_runs.json, selected_learning_rates.json, selected_learning_rates.csv and experiment_summary.json.
+- `--resume <directory>` checks the shared protocol, source/software versions, split and initialization hashes. It skips only completed runs whose identities, constructor settings, histories, epochs, metrics and weight artifacts validate. Every failed, interrupted, missing or invalid run restarts at epoch 1 from the saved canonical model weights; optimizer state is not resumed. Previous attempts are retained, aggregates are replaced atomically, and an OS lock prevents concurrent writers.
+- Default/`--check-only` execution never fits, including when --resume is supplied. Fitting always requires --train and explicit user approval. Resume/checkpoint behaviour has been inspected in source; no real fits or completed-run resumes were executed during preparation.
+- Neither the retired pilot test array nor fresh final-test images are loaded/generated/evaluated. IDs 500-574 remain reserved for final evaluation. Main 60-fit recovery comparison and segmentation remain outstanding and are not created or started by Stage 5.
 
 ---
 
@@ -262,15 +274,15 @@ min_delta:
 
 1e-5
 
-restore_best_weights:
+Stage 4 EarlyStopping restore_best_weights:
 
-True
+True (historical completed protocol; unchanged).
 
-Use the same stopping conditions for all configurations.
+Stage 5 EarlyStopping restore_best_weights:
 
-Correct terminology:
+False. EarlyStopping controls stopping only. A separate callback records every strict raw improvement and copies that epoch's model weights, without min_delta. After fit, restore these raw-best weights explicitly before validation and saving.
 
-All optimizers use the same convergence/stopping conditions but may exhibit different convergence behaviour.
+All configurations share the same maximum epochs, patience and min_delta. These are empirical stopping controls, not mathematical convergence theorems. The difference between Stage 4 and Stage 5 checkpoint restoration is explicit and does not alter completed MSE results.
 
 Record:
 
@@ -461,12 +473,14 @@ Revised experiment files:
 
 experiment_config.py
 stage4_lr_sensitivity.py
+stage5_loss_lr_screening.py
 
-Results directory:
+Results directories:
 
 results/stage4_lr_sensitivity/
+results/stage5_loss_lr_screening/
 
-Use a new timestamped experiment subdirectory for each screening invocation. The screening script defaults to lightweight preflight and starts the 16 fits only with an explicit --train flag after user approval. No full training run is authorized yet.
+Use a new timestamped experiment subdirectory for each new screening experiment. Both runners default to preflight and require an explicit --train flag for fitting. Stage 4 MSE screening is already completed; do not rerun it. Stage 5 supports validated --resume but still requires --train to fit. No Stage 5 training is authorized yet.
 
 Do not overwrite pilot results.
 
