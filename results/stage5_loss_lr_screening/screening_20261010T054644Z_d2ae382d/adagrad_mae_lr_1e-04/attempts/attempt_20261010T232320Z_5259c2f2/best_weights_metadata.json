@@ -1,0 +1,6 @@
+{
+  "best_epoch": 50,
+  "best_validation_loss": 0.3013366162776947,
+  "model_weights_sha256": "3efbd53c6518928b4ab6c0187a342c0f985a9600f2a9da1707d2af65ef1f263e",
+  "archive_sha256": "b891ade663ddc05329e4e2809c721a96bf3c18a4beb3a9a7017bbca5d2637524"
+}
