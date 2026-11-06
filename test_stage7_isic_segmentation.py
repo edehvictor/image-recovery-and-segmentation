@@ -73,5 +73,23 @@ class SplitTests(unittest.TestCase):
                              protocol, "Adam", "BCE", 0.001)
 
 
+class PixelMetricTests(unittest.TestCase):
+    def test_known_confusion_counts(self):
+        scores = stage7.pixel_metrics(tp=3, fp=1, tn=4, fn=2)
+        self.assertAlmostEqual(scores["precision"], 0.75)
+        self.assertAlmostEqual(scores["accuracy"], 0.7)
+        self.assertAlmostEqual(scores["specificity"], 0.8)
+        self.assertAlmostEqual(scores["sensitivity"], 0.6)
+        self.assertAlmostEqual(scores["dice"], 6 / 9)
+        self.assertAlmostEqual(scores["iou"], 0.5)
+
+    def test_undefined_rates_are_not_invented(self):
+        scores = stage7.pixel_metrics(tp=0, fp=0, tn=10, fn=0)
+        self.assertIsNone(scores["precision"])
+        self.assertIsNone(scores["sensitivity"])
+        self.assertEqual(scores["specificity"], 1.0)
+        self.assertEqual(scores["dice"], 1.0)
+
+
 if __name__ == "__main__":
     unittest.main()

@@ -274,6 +274,25 @@ def overlap_scores(tf, y_true, y_pred, threshold: float):
     return dice, iou
 
 
+def pixel_metrics(tp: int, fp: int, tn: int, fn: int) -> dict:
+    """Binary lesion/background scores from pixel counts; undefined rates stay null."""
+    if min(tp, fp, tn, fn) < 0:
+        raise ValueError("Pixel counts cannot be negative")
+
+    def ratio(numerator: int, denominator: int):
+        return numerator / denominator if denominator else None
+
+    total = tp + fp + tn + fn
+    return {
+        "precision": ratio(tp, tp + fp),
+        "accuracy": ratio(tp + tn, total),
+        "specificity": ratio(tn, tn + fp),
+        "sensitivity": ratio(tp, tp + fn),
+        "dice": ratio(2 * tp, 2 * tp + fp + fn) if tp + fp + fn else 1.0,
+        "iou": ratio(tp, tp + fp + fn) if tp + fp + fn else 1.0,
+    }
+
+
 def dice_loss(tf, y_true, y_pred):
     axes = (1, 2, 3)
     truth = tf.cast(y_true, tf.float32)
@@ -503,12 +522,18 @@ def final_evaluate(images: Path, masks: Path, run_dir: Path) -> Path:
             probability = tf.image.resize(probability, tf.shape(original_mask)[:2], method="bilinear")
             predicted = tf.cast(probability >= threshold, tf.float32)
             truth = tf.cast(original_mask > 127, tf.float32)
-            dice, iou = overlap_scores(tf, truth[None, ...], predicted[None, ...], 0.5)
-            raw_iou = float(iou[0].numpy())
+            actual = tf.cast(truth > 0.5, tf.bool)
+            estimated = tf.cast(predicted > 0.5, tf.bool)
+            tp = int(tf.math.count_nonzero(tf.logical_and(actual, estimated)).numpy())
+            fp = int(tf.math.count_nonzero(tf.logical_and(tf.logical_not(actual), estimated)).numpy())
+            tn = int(tf.math.count_nonzero(tf.logical_and(tf.logical_not(actual), tf.logical_not(estimated))).numpy())
+            fn = int(tf.math.count_nonzero(tf.logical_and(actual, tf.logical_not(estimated))).numpy())
+            scores = pixel_metrics(tp, fp, tn, fn)
+            raw_iou = scores["iou"]
             rows.append({
                 "image_id": image_id,
-                "dice": float(dice[0].numpy()),
-                "iou": raw_iou,
+                "tp": tp, "fp": fp, "tn": tn, "fn": fn,
+                **scores,
                 "thresholded_jaccard_0_65": raw_iou if raw_iou >= 0.65 else 0.0,
             })
             png = tf.io.encode_png(tf.cast(predicted * 255, tf.uint8)).numpy()
@@ -518,11 +543,20 @@ def final_evaluate(images: Path, masks: Path, run_dir: Path) -> Path:
         writer = csv.DictWriter(stream, fieldnames=list(rows[0]))
         writer.writeheader()
         writer.writerows(rows)
+    totals = {key: sum(row[key] for row in rows) for key in ("tp", "fp", "tn", "fn")}
+    macro_scores = {}
+    defined_counts = {}
+    for key in ("precision", "accuracy", "specificity", "sensitivity", "dice", "iou"):
+        values = [row[key] for row in rows if row[key] is not None]
+        macro_scores[key] = sum(values) / len(values) if values else None
+        defined_counts[key] = len(values)
     summary = {
         "evaluated_at": utc_now(), "number_of_test_images": len(rows),
         "threshold": threshold, "evaluation_resolution": "original image/mask pixels",
-        "mean_dice": sum(row["dice"] for row in rows) / len(rows),
-        "mean_iou": sum(row["iou"] for row in rows) / len(rows),
+        "macro_scores": macro_scores, "macro_defined_image_counts": defined_counts,
+        "pooled_pixel_counts": totals, "micro_scores": pixel_metrics(**totals),
+        "mean_dice": macro_scores["dice"],
+        "mean_iou": macro_scores["iou"],
         "mean_thresholded_jaccard_0_65": sum(row["thresholded_jaccard_0_65"] for row in rows) / len(rows),
     }
     save_json(run_dir / "test_summary.json", summary)

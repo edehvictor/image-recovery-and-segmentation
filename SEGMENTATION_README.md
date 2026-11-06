@@ -40,9 +40,11 @@ accepted for training.
 ## Decisions to confirm with Chisom before training
 
 `segmentation_protocol_draft.json` has `confirmed_for_training: false` and
-training refuses to start in this state. Its 256-pixel image size, batch size 4,
-70/15/15 ID-level split, maximum 50 epochs, and no augmentation are **draft
-values**, not reported research decisions. Confirm these settings, the split
+training refuses to start in this state. The fixed 256 × 256 input size is a
+practical compute and consistency choice, not a proven optimal resolution.
+Batch size 4, the 70/15/15 ID-level split, maximum 50 epochs, and no
+augmentation remain **draft values**, not reported research decisions.
+Confirm these settings, the split
 policy (including possible duplicate lesions/patients), and segmentation
 learning rates at the meeting. Do **not** copy the recovery learning rates
 without segmentation validation evidence.
@@ -67,7 +69,14 @@ training has been performed in this preparation.
 
 **Final test evaluation is a separate step, only after all selections are
 frozen.** It reads each held-out test image once per completed run, evaluates
-Dice and IoU at the original mask size, and saves one predicted mask per image.
+Dice, IoU, precision, accuracy, specificity, and sensitivity at the original
+mask size, and saves one predicted mask per image. These are **pixel-level**
+lesion/background scores, not image-level diagnosis scores. The saved CSV
+includes TP, FP, TN, FN and all six metrics for every image. The JSON summary
+includes the mean of defined per-image scores (macro), scores calculated from
+pooled pixel counts (micro), and the count of images for which each rate is
+defined. If a rate has a zero denominator, it is left undefined (null in JSON,
+blank in CSV). The prediction threshold is the protocol's fixed 0.5.
 It refuses to repeat a completed run's test evaluation:
 
 ```bash

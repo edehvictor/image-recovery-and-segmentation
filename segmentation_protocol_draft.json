@@ -16,7 +16,7 @@
   "losses": ["BCE", "Dice"],
   "sgd_momentum": 0.9,
   "notes_for_sunday": [
-    "Confirm image size, batch size, split fractions, and epoch budget with Chisom before training.",
+    "Use 256 x 256 as the fixed practical input size for this project; this is a feasibility decision, not an empirically optimal resolution. Confirm batch size, split fractions, and epoch budget with Chisom before training.",
     "Choose segmentation learning rates using validation data; do not copy the recovery selections automatically.",
     "The official training ZIPs are required for real training. The small local pair is for checks only.",
     "Set confirmed_for_training to true only after these choices are agreed and recorded."
