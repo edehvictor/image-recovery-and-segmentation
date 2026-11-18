@@ -1,0 +1,58 @@
+[
+  {
+    "optimizer": "Adam",
+    "loss": "BCE",
+    "learning_rate": 0.001,
+    "validation_dice": 0.8202057480812073,
+    "run_dir": "/Users/chisomchibuike/Downloads/Segmentation_Code/results/stage7_isic_segmentation/20261112T110144Z_adam_bce_1e-03"
+  },
+  {
+    "optimizer": "Adam",
+    "loss": "Dice",
+    "learning_rate": 0.0001,
+    "validation_dice": 0.8311901092529297,
+    "run_dir": "/Users/chisomchibuike/Downloads/Segmentation_Code/results/stage7_isic_segmentation/20261112T132355Z_adam_dice_1e-04"
+  },
+  {
+    "optimizer": "Adagrad",
+    "loss": "BCE",
+    "learning_rate": 0.1,
+    "validation_dice": 0.8175649642944336,
+    "run_dir": "/Users/chisomchibuike/Downloads/Segmentation_Code/results/stage7_isic_segmentation/20261112T184839Z_adagrad_bce_1e-01"
+  },
+  {
+    "optimizer": "Adagrad",
+    "loss": "Dice",
+    "learning_rate": 0.1,
+    "validation_dice": 0.8145977854728699,
+    "run_dir": "/Users/chisomchibuike/Downloads/Segmentation_Code/results/stage7_isic_segmentation/20261112T213811Z_adagrad_dice_1e-01"
+  },
+  {
+    "optimizer": "RMSProp",
+    "loss": "BCE",
+    "learning_rate": 0.0001,
+    "validation_dice": 0.8143650889396667,
+    "run_dir": "/Users/chisomchibuike/Downloads/Segmentation_Code/results/stage7_isic_segmentation/20261112T232703Z_rmsprop_bce_1e-04"
+  },
+  {
+    "optimizer": "RMSProp",
+    "loss": "Dice",
+    "learning_rate": 0.0001,
+    "validation_dice": 0.8161516785621643,
+    "run_dir": "/Users/chisomchibuike/Downloads/Segmentation_Code/results/stage7_isic_segmentation/20261113T101425Z_rmsprop_dice_1e-04"
+  },
+  {
+    "optimizer": "SGD-Nesterov",
+    "loss": "BCE",
+    "learning_rate": 0.01,
+    "validation_dice": 0.800731897354126,
+    "run_dir": "/Users/chisomchibuike/Downloads/Segmentation_Code/results/stage7_isic_segmentation/20261113T140353Z_sgd-nesterov_bce_1e-02"
+  },
+  {
+    "optimizer": "SGD-Nesterov",
+    "loss": "Dice",
+    "learning_rate": 0.0001,
+    "validation_dice": 0.30043748021125793,
+    "run_dir": "/Users/chisomchibuike/Downloads/Segmentation_Code/results/stage7_isic_segmentation/20261113T155155Z_sgd-nesterov_dice_1e-04"
+  }
+]

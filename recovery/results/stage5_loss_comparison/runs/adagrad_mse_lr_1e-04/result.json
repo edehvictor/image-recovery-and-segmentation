@@ -1,0 +1,12 @@
+{
+  "run_id": "adagrad_mse_lr_1e-04",
+  "optimizer": "Adagrad",
+  "loss": "MSE",
+  "learning_rate": 0.0001,
+  "status": "completed",
+  "validation_mse": 0.12838901579380035,
+  "validation_psnr": 8.91472053527832,
+  "epochs_run": 50,
+  "training_time_seconds": 2489.701677458943,
+  "error": ""
+}

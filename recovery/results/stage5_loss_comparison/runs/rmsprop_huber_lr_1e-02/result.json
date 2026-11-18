@@ -1,0 +1,12 @@
+{
+  "run_id": "rmsprop_huber_lr_1e-02",
+  "optimizer": "RMSProp",
+  "loss": "Huber",
+  "learning_rate": 0.01,
+  "status": "completed",
+  "validation_mse": 0.00020593915542121977,
+  "validation_psnr": 36.86319351196289,
+  "epochs_run": 16,
+  "training_time_seconds": 794.9024211660726,
+  "error": ""
+}

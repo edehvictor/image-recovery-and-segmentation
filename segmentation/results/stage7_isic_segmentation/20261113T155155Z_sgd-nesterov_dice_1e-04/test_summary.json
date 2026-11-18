@@ -1,0 +1,39 @@
+{
+  "evaluated_at": "2026-11-13T17:51:56Z",
+  "evaluation_resolution": "original image/mask pixels",
+  "macro_defined_image_counts": {
+    "accuracy": 389,
+    "dice": 389,
+    "iou": 389,
+    "precision": 389,
+    "sensitivity": 389,
+    "specificity": 389
+  },
+  "macro_scores": {
+    "accuracy": 0.21415640871549327,
+    "dice": 0.3081348980112033,
+    "iou": 0.2141532888747515,
+    "precision": 0.2141533084255423,
+    "sensitivity": 0.999999973130779,
+    "specificity": 1.018592727715775e-05
+  },
+  "mean_dice": 0.3081348980112033,
+  "mean_iou": 0.2141532888747515,
+  "mean_thresholded_jaccard_0_65": 0.048882413422911025,
+  "micro_scores": {
+    "accuracy": 0.2231194170580222,
+    "dice": 0.36483120458604024,
+    "iou": 0.22311531727443432,
+    "precision": 0.22311531770599932,
+    "sensitivity": 0.9999999913306322,
+    "specificity": 6.792773877026727e-06
+  },
+  "number_of_test_images": 389,
+  "pooled_pixel_counts": {
+    "fn": 7,
+    "fp": 2811498015,
+    "tn": 19098,
+    "tp": 807440650
+  },
+  "threshold": 0.5
+}

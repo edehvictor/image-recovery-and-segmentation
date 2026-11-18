@@ -1,0 +1,12 @@
+{
+  "run_id": "rmsprop_mse_lr_1e-03",
+  "optimizer": "RMSProp",
+  "loss": "MSE",
+  "learning_rate": 0.001,
+  "status": "completed",
+  "validation_mse": 0.00017951808695215732,
+  "validation_psnr": 37.45933532714844,
+  "epochs_run": 32,
+  "training_time_seconds": 1504.6265311669558,
+  "error": ""
+}

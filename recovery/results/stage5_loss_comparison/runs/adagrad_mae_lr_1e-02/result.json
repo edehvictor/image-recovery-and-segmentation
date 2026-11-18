@@ -1,0 +1,12 @@
+{
+  "run_id": "adagrad_mae_lr_1e-02",
+  "optimizer": "Adagrad",
+  "loss": "MAE",
+  "learning_rate": 0.01,
+  "status": "completed",
+  "validation_mse": 0.00043072839616797864,
+  "validation_psnr": 33.658233642578125,
+  "epochs_run": 50,
+  "training_time_seconds": 2322.146644334076,
+  "error": ""
+}

@@ -1,0 +1,12 @@
+{
+  "run_id": "sgd-nesterov_mse_lr_1e-03",
+  "optimizer": "SGD-Nesterov",
+  "loss": "MSE",
+  "learning_rate": 0.001,
+  "status": "completed",
+  "validation_mse": 0.0013351642992347479,
+  "validation_psnr": 28.744720458984375,
+  "epochs_run": 50,
+  "training_time_seconds": 2325.0628942910116,
+  "error": ""
+}

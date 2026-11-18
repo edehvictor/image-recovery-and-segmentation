@@ -1,0 +1,58 @@
+{
+  "completed_at": "2026-11-13T10:14:25Z",
+  "counts": {
+    "test": 389,
+    "train": 1816,
+    "validation": 389
+  },
+  "dataset_ids_sha256": "29585d76c7fca9ff088eb35913437bb022b323b0ed47f0c49762eade7e1f257c",
+  "epochs_run": 6,
+  "fit_seconds": 901.9431284999009,
+  "initial_weights_sha256": "b1a65155c0c4ab11389affec304aba3cd5edb90fda3e29fe368ad4abf4707da6",
+  "learning_rate": 0.1,
+  "loss": "BCE",
+  "note": "No test image or mask was read during training.",
+  "optimizer": "RMSProp",
+  "protocol": {
+    "batch_size": 4,
+    "confirmed_for_training": true,
+    "dataset_name": "ISIC 2018 Task 1 - Lesion Boundary Segmentation",
+    "early_stopping_min_delta": 1e-05,
+    "early_stopping_patience": 5,
+    "expected_training_pairs": 2594,
+    "image_size": 256,
+    "losses": [
+      "BCE",
+      "Dice"
+    ],
+    "maximum_epochs": 50,
+    "notes_for_sunday": [
+      "Use 256 x 256 as the fixed practical input size for this project; this is a feasibility decision, not an empirically optimal resolution. Confirm batch size, split fractions, and epoch budget with Chisom before training.",
+      "Choose segmentation learning rates using validation data; do not copy the recovery selections automatically.",
+      "The official training ZIPs are required for real training. The small local pair is for checks only.",
+      "Set confirmed_for_training to true only after these choices are agreed and recorded."
+    ],
+    "optimizers": [
+      "Adam",
+      "Adagrad",
+      "RMSProp",
+      "SGD-Nesterov"
+    ],
+    "paired_horizontal_vertical_flips": false,
+    "prediction_threshold": 0.5,
+    "seed": 42,
+    "sgd_momentum": 0.9,
+    "test_fraction": 0.15,
+    "validation_fraction": 0.15
+  },
+  "protocol_sha256": "cf471a96cb0d32e115c8b28e180664ac24e51d0d74064ea5679c4070cf93c51c",
+  "raw_best_validation_dice_epoch": 1,
+  "restored_validation": {
+    "dice": 0.0,
+    "iou": 0.0,
+    "loss": 0.5073589086532593
+  },
+  "split_file": "/Users/chisomchibuike/Downloads/Segmentation_Code/results/stage7_isic_segmentation/split_2b8d063f8d3697fd.json",
+  "started_at": "2026-11-13T09:58:56Z",
+  "status": "completed"
+}

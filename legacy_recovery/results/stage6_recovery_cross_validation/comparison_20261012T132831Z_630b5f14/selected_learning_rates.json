@@ -1,0 +1,22 @@
+{
+  "Adam": {
+    "MAE": 0.001,
+    "Huber": 0.001,
+    "MSE": 0.001
+  },
+  "Adagrad": {
+    "MAE": 0.1,
+    "Huber": 0.1,
+    "MSE": 0.1
+  },
+  "RMSProp": {
+    "MAE": 0.001,
+    "Huber": 0.01,
+    "MSE": 0.001
+  },
+  "SGD-Nesterov": {
+    "MAE": 0.01,
+    "Huber": 0.1,
+    "MSE": 0.1
+  }
+}

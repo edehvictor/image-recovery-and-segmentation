@@ -1,0 +1,121 @@
+{
+  "recommendation": "READY",
+  "python_executable": "/home/devnomso/fyp-tensorflow/bin/python",
+  "software_versions": {
+    "python": "3.13.16",
+    "tensorflow": "2.21.0",
+    "keras": "3.15.1",
+    "numpy": "2.5.3",
+    "scikit_image": "0.26.0"
+  },
+  "development_ids": 425,
+  "folds": [
+    {
+      "fold": 1,
+      "training_ids": 340,
+      "validation_ids": 85,
+      "disjoint": true,
+      "union_equals_development": true
+    },
+    {
+      "fold": 2,
+      "training_ids": 340,
+      "validation_ids": 85,
+      "disjoint": true,
+      "union_equals_development": true
+    },
+    {
+      "fold": 3,
+      "training_ids": 340,
+      "validation_ids": 85,
+      "disjoint": true,
+      "union_equals_development": true
+    },
+    {
+      "fold": 4,
+      "training_ids": 340,
+      "validation_ids": 85,
+      "disjoint": true,
+      "union_equals_development": true
+    },
+    {
+      "fold": 5,
+      "training_ids": 340,
+      "validation_ids": 85,
+      "disjoint": true,
+      "union_equals_development": true
+    }
+  ],
+  "each_development_id_validated_once": true,
+  "fresh_test_ids": [
+    500,
+    574
+  ],
+  "fresh_test_count": 75,
+  "test_development_disjoint": true,
+  "pilot_test_array_loaded": false,
+  "test_images_generated": false,
+  "datasets_created": false,
+  "model_fit_called": false,
+  "model_evaluation_called": false,
+  "training_started": false,
+  "deterministic_operations": "enabled",
+  "unet_models_built": 1,
+  "unet_parameters": 120681,
+  "input_shape": [
+    null,
+    512,
+    512,
+    1
+  ],
+  "output_shape": [
+    null,
+    512,
+    512,
+    1
+  ],
+  "initial_weights_sha256": "3d8af7fb3e7d315c2358a71bef8213afa7e6e29217099ad230fe89951a531926",
+  "initialization_identical_for_every_run": true,
+  "selected_learning_rates": {
+    "Adam": {
+      "MAE": 0.001,
+      "Huber": 0.001,
+      "MSE": 0.001
+    },
+    "Adagrad": {
+      "MAE": 0.1,
+      "Huber": 0.1,
+      "MSE": 0.1
+    },
+    "RMSProp": {
+      "MAE": 0.001,
+      "Huber": 0.01,
+      "MSE": 0.001
+    },
+    "SGD-Nesterov": {
+      "MAE": 0.01,
+      "Huber": 0.1,
+      "MSE": 0.1
+    }
+  },
+  "optimizer_loss_pairs": 12,
+  "planned_fits": 60,
+  "optimizer_loss_factories_instantiated": 60,
+  "max_epochs": 50,
+  "patience": 5,
+  "min_delta": 1e-05,
+  "early_stopping_restore_best_weights": false,
+  "post_fit_raw_best_restoration": true,
+  "sgd_momentum": 0.9,
+  "sgd_nesterov": true,
+  "huber_delta": 0.1,
+  "results_root": "/mnt/c/Users/HP ELITEBOOK 830 G8/Desktop/FINAL YEAR PROJECT/image-recovery-project/results/stage6_recovery_cross_validation",
+  "output_separate_from_prior_stages": true,
+  "protocol_sha256": "f6164b2f2bcfb11a3839bd828e0b6a84bbe7afdc316cbcf7939ef29abed8875b",
+  "verified_stage5_runs": 32,
+  "selected_stage5_pairs": 8,
+  "stage5_training_seconds": 64742.32708273699,
+  "stage5_source_eol_changes_only": [
+    "stage2_unet.py"
+  ]
+}

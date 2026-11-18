@@ -1,0 +1,12 @@
+{
+  "run_id": "adam_mae_lr_1e-02",
+  "optimizer": "Adam",
+  "loss": "MAE",
+  "learning_rate": 0.01,
+  "status": "completed",
+  "validation_mse": 0.05893610790371895,
+  "validation_psnr": 12.296191215515137,
+  "epochs_run": 6,
+  "training_time_seconds": 263.3623071659822,
+  "error": ""
+}

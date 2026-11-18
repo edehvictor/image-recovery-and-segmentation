@@ -1,0 +1,1613 @@
+{
+  "schema_version": 1,
+  "stage": 6,
+  "seed": 42,
+  "image_size": 512,
+  "gaussian_mean": 0.0,
+  "gaussian_std": 0.1,
+  "clip_range": [
+    0.0,
+    1.0
+  ],
+  "batch_size": 1,
+  "max_epochs": 50,
+  "patience": 5,
+  "min_delta": 1e-05,
+  "early_stopping_restore_best_weights": false,
+  "best_model_rule": "First strict raw minimum val_loss; explicitly restore before validation/saving",
+  "initial_weights_sha256": "3d8af7fb3e7d315c2358a71bef8213afa7e6e29217099ad230fe89951a531926",
+  "initialization_policy": "Same seed-42 fresh canonical weights for all 60 fits; no screened model weights",
+  "split_sha256": "91c10cbc3668eddf5ea8809afa84e1d6bd1367d316d9c29025d2f306e6288221",
+  "fold_split_sha256": {
+    "1": "b7cca054d0978d0ebeb4a87ab85da4421771e18bdd0fc430e045519ee0a30caf",
+    "2": "6302ca0d78544ee059d2eaa7c5b42af0b08c42b89035248ef4a1660046a8a059",
+    "3": "b3f9556e1eface962accc2ff95ee4fddf465ff8fbec2f5924b628b92ab717751",
+    "4": "b6b8d3f3729d040ee9c643480cffcbc022706e29158ae70dee1985b93293d096",
+    "5": "63b8952c8e2c2e3b790ad44c3d76925603a348893929bbf6661dafd1a41ed79f"
+  },
+  "selected_learning_rates": {
+    "Adam": {
+      "MAE": 0.001,
+      "Huber": 0.001,
+      "MSE": 0.001
+    },
+    "Adagrad": {
+      "MAE": 0.1,
+      "Huber": 0.1,
+      "MSE": 0.1
+    },
+    "RMSProp": {
+      "MAE": 0.001,
+      "Huber": 0.01,
+      "MSE": 0.001
+    },
+    "SGD-Nesterov": {
+      "MAE": 0.01,
+      "Huber": 0.1,
+      "MSE": 0.1
+    }
+  },
+  "planned_runs": [
+    {
+      "run_id": "adam_mse_fold_1",
+      "optimizer": "Adam",
+      "loss": "MSE",
+      "learning_rate": 0.001,
+      "fold": 1
+    },
+    {
+      "run_id": "adam_mae_fold_1",
+      "optimizer": "Adam",
+      "loss": "MAE",
+      "learning_rate": 0.001,
+      "fold": 1
+    },
+    {
+      "run_id": "adam_huber_fold_1",
+      "optimizer": "Adam",
+      "loss": "Huber",
+      "learning_rate": 0.001,
+      "fold": 1
+    },
+    {
+      "run_id": "adagrad_mse_fold_1",
+      "optimizer": "Adagrad",
+      "loss": "MSE",
+      "learning_rate": 0.1,
+      "fold": 1
+    },
+    {
+      "run_id": "adagrad_mae_fold_1",
+      "optimizer": "Adagrad",
+      "loss": "MAE",
+      "learning_rate": 0.1,
+      "fold": 1
+    },
+    {
+      "run_id": "adagrad_huber_fold_1",
+      "optimizer": "Adagrad",
+      "loss": "Huber",
+      "learning_rate": 0.1,
+      "fold": 1
+    },
+    {
+      "run_id": "rmsprop_mse_fold_1",
+      "optimizer": "RMSProp",
+      "loss": "MSE",
+      "learning_rate": 0.001,
+      "fold": 1
+    },
+    {
+      "run_id": "rmsprop_mae_fold_1",
+      "optimizer": "RMSProp",
+      "loss": "MAE",
+      "learning_rate": 0.001,
+      "fold": 1
+    },
+    {
+      "run_id": "rmsprop_huber_fold_1",
+      "optimizer": "RMSProp",
+      "loss": "Huber",
+      "learning_rate": 0.01,
+      "fold": 1
+    },
+    {
+      "run_id": "sgd-nesterov_mse_fold_1",
+      "optimizer": "SGD-Nesterov",
+      "loss": "MSE",
+      "learning_rate": 0.1,
+      "fold": 1
+    },
+    {
+      "run_id": "sgd-nesterov_mae_fold_1",
+      "optimizer": "SGD-Nesterov",
+      "loss": "MAE",
+      "learning_rate": 0.01,
+      "fold": 1
+    },
+    {
+      "run_id": "sgd-nesterov_huber_fold_1",
+      "optimizer": "SGD-Nesterov",
+      "loss": "Huber",
+      "learning_rate": 0.1,
+      "fold": 1
+    },
+    {
+      "run_id": "adam_mse_fold_2",
+      "optimizer": "Adam",
+      "loss": "MSE",
+      "learning_rate": 0.001,
+      "fold": 2
+    },
+    {
+      "run_id": "adam_mae_fold_2",
+      "optimizer": "Adam",
+      "loss": "MAE",
+      "learning_rate": 0.001,
+      "fold": 2
+    },
+    {
+      "run_id": "adam_huber_fold_2",
+      "optimizer": "Adam",
+      "loss": "Huber",
+      "learning_rate": 0.001,
+      "fold": 2
+    },
+    {
+      "run_id": "adagrad_mse_fold_2",
+      "optimizer": "Adagrad",
+      "loss": "MSE",
+      "learning_rate": 0.1,
+      "fold": 2
+    },
+    {
+      "run_id": "adagrad_mae_fold_2",
+      "optimizer": "Adagrad",
+      "loss": "MAE",
+      "learning_rate": 0.1,
+      "fold": 2
+    },
+    {
+      "run_id": "adagrad_huber_fold_2",
+      "optimizer": "Adagrad",
+      "loss": "Huber",
+      "learning_rate": 0.1,
+      "fold": 2
+    },
+    {
+      "run_id": "rmsprop_mse_fold_2",
+      "optimizer": "RMSProp",
+      "loss": "MSE",
+      "learning_rate": 0.001,
+      "fold": 2
+    },
+    {
+      "run_id": "rmsprop_mae_fold_2",
+      "optimizer": "RMSProp",
+      "loss": "MAE",
+      "learning_rate": 0.001,
+      "fold": 2
+    },
+    {
+      "run_id": "rmsprop_huber_fold_2",
+      "optimizer": "RMSProp",
+      "loss": "Huber",
+      "learning_rate": 0.01,
+      "fold": 2
+    },
+    {
+      "run_id": "sgd-nesterov_mse_fold_2",
+      "optimizer": "SGD-Nesterov",
+      "loss": "MSE",
+      "learning_rate": 0.1,
+      "fold": 2
+    },
+    {
+      "run_id": "sgd-nesterov_mae_fold_2",
+      "optimizer": "SGD-Nesterov",
+      "loss": "MAE",
+      "learning_rate": 0.01,
+      "fold": 2
+    },
+    {
+      "run_id": "sgd-nesterov_huber_fold_2",
+      "optimizer": "SGD-Nesterov",
+      "loss": "Huber",
+      "learning_rate": 0.1,
+      "fold": 2
+    },
+    {
+      "run_id": "adam_mse_fold_3",
+      "optimizer": "Adam",
+      "loss": "MSE",
+      "learning_rate": 0.001,
+      "fold": 3
+    },
+    {
+      "run_id": "adam_mae_fold_3",
+      "optimizer": "Adam",
+      "loss": "MAE",
+      "learning_rate": 0.001,
+      "fold": 3
+    },
+    {
+      "run_id": "adam_huber_fold_3",
+      "optimizer": "Adam",
+      "loss": "Huber",
+      "learning_rate": 0.001,
+      "fold": 3
+    },
+    {
+      "run_id": "adagrad_mse_fold_3",
+      "optimizer": "Adagrad",
+      "loss": "MSE",
+      "learning_rate": 0.1,
+      "fold": 3
+    },
+    {
+      "run_id": "adagrad_mae_fold_3",
+      "optimizer": "Adagrad",
+      "loss": "MAE",
+      "learning_rate": 0.1,
+      "fold": 3
+    },
+    {
+      "run_id": "adagrad_huber_fold_3",
+      "optimizer": "Adagrad",
+      "loss": "Huber",
+      "learning_rate": 0.1,
+      "fold": 3
+    },
+    {
+      "run_id": "rmsprop_mse_fold_3",
+      "optimizer": "RMSProp",
+      "loss": "MSE",
+      "learning_rate": 0.001,
+      "fold": 3
+    },
+    {
+      "run_id": "rmsprop_mae_fold_3",
+      "optimizer": "RMSProp",
+      "loss": "MAE",
+      "learning_rate": 0.001,
+      "fold": 3
+    },
+    {
+      "run_id": "rmsprop_huber_fold_3",
+      "optimizer": "RMSProp",
+      "loss": "Huber",
+      "learning_rate": 0.01,
+      "fold": 3
+    },
+    {
+      "run_id": "sgd-nesterov_mse_fold_3",
+      "optimizer": "SGD-Nesterov",
+      "loss": "MSE",
+      "learning_rate": 0.1,
+      "fold": 3
+    },
+    {
+      "run_id": "sgd-nesterov_mae_fold_3",
+      "optimizer": "SGD-Nesterov",
+      "loss": "MAE",
+      "learning_rate": 0.01,
+      "fold": 3
+    },
+    {
+      "run_id": "sgd-nesterov_huber_fold_3",
+      "optimizer": "SGD-Nesterov",
+      "loss": "Huber",
+      "learning_rate": 0.1,
+      "fold": 3
+    },
+    {
+      "run_id": "adam_mse_fold_4",
+      "optimizer": "Adam",
+      "loss": "MSE",
+      "learning_rate": 0.001,
+      "fold": 4
+    },
+    {
+      "run_id": "adam_mae_fold_4",
+      "optimizer": "Adam",
+      "loss": "MAE",
+      "learning_rate": 0.001,
+      "fold": 4
+    },
+    {
+      "run_id": "adam_huber_fold_4",
+      "optimizer": "Adam",
+      "loss": "Huber",
+      "learning_rate": 0.001,
+      "fold": 4
+    },
+    {
+      "run_id": "adagrad_mse_fold_4",
+      "optimizer": "Adagrad",
+      "loss": "MSE",
+      "learning_rate": 0.1,
+      "fold": 4
+    },
+    {
+      "run_id": "adagrad_mae_fold_4",
+      "optimizer": "Adagrad",
+      "loss": "MAE",
+      "learning_rate": 0.1,
+      "fold": 4
+    },
+    {
+      "run_id": "adagrad_huber_fold_4",
+      "optimizer": "Adagrad",
+      "loss": "Huber",
+      "learning_rate": 0.1,
+      "fold": 4
+    },
+    {
+      "run_id": "rmsprop_mse_fold_4",
+      "optimizer": "RMSProp",
+      "loss": "MSE",
+      "learning_rate": 0.001,
+      "fold": 4
+    },
+    {
+      "run_id": "rmsprop_mae_fold_4",
+      "optimizer": "RMSProp",
+      "loss": "MAE",
+      "learning_rate": 0.001,
+      "fold": 4
+    },
+    {
+      "run_id": "rmsprop_huber_fold_4",
+      "optimizer": "RMSProp",
+      "loss": "Huber",
+      "learning_rate": 0.01,
+      "fold": 4
+    },
+    {
+      "run_id": "sgd-nesterov_mse_fold_4",
+      "optimizer": "SGD-Nesterov",
+      "loss": "MSE",
+      "learning_rate": 0.1,
+      "fold": 4
+    },
+    {
+      "run_id": "sgd-nesterov_mae_fold_4",
+      "optimizer": "SGD-Nesterov",
+      "loss": "MAE",
+      "learning_rate": 0.01,
+      "fold": 4
+    },
+    {
+      "run_id": "sgd-nesterov_huber_fold_4",
+      "optimizer": "SGD-Nesterov",
+      "loss": "Huber",
+      "learning_rate": 0.1,
+      "fold": 4
+    },
+    {
+      "run_id": "adam_mse_fold_5",
+      "optimizer": "Adam",
+      "loss": "MSE",
+      "learning_rate": 0.001,
+      "fold": 5
+    },
+    {
+      "run_id": "adam_mae_fold_5",
+      "optimizer": "Adam",
+      "loss": "MAE",
+      "learning_rate": 0.001,
+      "fold": 5
+    },
+    {
+      "run_id": "adam_huber_fold_5",
+      "optimizer": "Adam",
+      "loss": "Huber",
+      "learning_rate": 0.001,
+      "fold": 5
+    },
+    {
+      "run_id": "adagrad_mse_fold_5",
+      "optimizer": "Adagrad",
+      "loss": "MSE",
+      "learning_rate": 0.1,
+      "fold": 5
+    },
+    {
+      "run_id": "adagrad_mae_fold_5",
+      "optimizer": "Adagrad",
+      "loss": "MAE",
+      "learning_rate": 0.1,
+      "fold": 5
+    },
+    {
+      "run_id": "adagrad_huber_fold_5",
+      "optimizer": "Adagrad",
+      "loss": "Huber",
+      "learning_rate": 0.1,
+      "fold": 5
+    },
+    {
+      "run_id": "rmsprop_mse_fold_5",
+      "optimizer": "RMSProp",
+      "loss": "MSE",
+      "learning_rate": 0.001,
+      "fold": 5
+    },
+    {
+      "run_id": "rmsprop_mae_fold_5",
+      "optimizer": "RMSProp",
+      "loss": "MAE",
+      "learning_rate": 0.001,
+      "fold": 5
+    },
+    {
+      "run_id": "rmsprop_huber_fold_5",
+      "optimizer": "RMSProp",
+      "loss": "Huber",
+      "learning_rate": 0.01,
+      "fold": 5
+    },
+    {
+      "run_id": "sgd-nesterov_mse_fold_5",
+      "optimizer": "SGD-Nesterov",
+      "loss": "MSE",
+      "learning_rate": 0.1,
+      "fold": 5
+    },
+    {
+      "run_id": "sgd-nesterov_mae_fold_5",
+      "optimizer": "SGD-Nesterov",
+      "loss": "MAE",
+      "learning_rate": 0.01,
+      "fold": 5
+    },
+    {
+      "run_id": "sgd-nesterov_huber_fold_5",
+      "optimizer": "SGD-Nesterov",
+      "loss": "Huber",
+      "learning_rate": 0.1,
+      "fold": 5
+    }
+  ],
+  "optimizer_definitions": {
+    "adam_mse_fold_1": {
+      "class": "Adam",
+      "settings": {
+        "learning_rate": 0.0010000000474974513,
+        "weight_decay": null,
+        "clipnorm": null,
+        "global_clipnorm": null,
+        "clipvalue": null,
+        "use_ema": false,
+        "ema_momentum": 0.99,
+        "ema_overwrite_frequency": null,
+        "loss_scale_factor": null,
+        "gradient_accumulation_steps": null,
+        "beta_1": 0.9,
+        "beta_2": 0.999,
+        "epsilon": 1e-07,
+        "amsgrad": false
+      }
+    },
+    "adam_mae_fold_1": {
+      "class": "Adam",
+      "settings": {
+        "learning_rate": 0.0010000000474974513,
+        "weight_decay": null,
+        "clipnorm": null,
+        "global_clipnorm": null,
+        "clipvalue": null,
+        "use_ema": false,
+        "ema_momentum": 0.99,
+        "ema_overwrite_frequency": null,
+        "loss_scale_factor": null,
+        "gradient_accumulation_steps": null,
+        "beta_1": 0.9,
+        "beta_2": 0.999,
+        "epsilon": 1e-07,
+        "amsgrad": false
+      }
+    },
+    "adam_huber_fold_1": {
+      "class": "Adam",
+      "settings": {
+        "learning_rate": 0.0010000000474974513,
+        "weight_decay": null,
+        "clipnorm": null,
+        "global_clipnorm": null,
+        "clipvalue": null,
+        "use_ema": false,
+        "ema_momentum": 0.99,
+        "ema_overwrite_frequency": null,
+        "loss_scale_factor": null,
+        "gradient_accumulation_steps": null,
+        "beta_1": 0.9,
+        "beta_2": 0.999,
+        "epsilon": 1e-07,
+        "amsgrad": false
+      }
+    },
+    "adagrad_mse_fold_1": {
+      "class": "Adagrad",
+      "settings": {
+        "learning_rate": 0.10000000149011612,
+        "weight_decay": null,
+        "clipnorm": null,
+        "global_clipnorm": null,
+        "clipvalue": null,
+        "use_ema": false,
+        "ema_momentum": 0.99,
+        "ema_overwrite_frequency": null,
+        "loss_scale_factor": null,
+        "gradient_accumulation_steps": null,
+        "initial_accumulator_value": 0.1,
+        "epsilon": 1e-07
+      }
+    },
+    "adagrad_mae_fold_1": {
+      "class": "Adagrad",
+      "settings": {
+        "learning_rate": 0.10000000149011612,
+        "weight_decay": null,
+        "clipnorm": null,
+        "global_clipnorm": null,
+        "clipvalue": null,
+        "use_ema": false,
+        "ema_momentum": 0.99,
+        "ema_overwrite_frequency": null,
+        "loss_scale_factor": null,
+        "gradient_accumulation_steps": null,
+        "initial_accumulator_value": 0.1,
+        "epsilon": 1e-07
+      }
+    },
+    "adagrad_huber_fold_1": {
+      "class": "Adagrad",
+      "settings": {
+        "learning_rate": 0.10000000149011612,
+        "weight_decay": null,
+        "clipnorm": null,
+        "global_clipnorm": null,
+        "clipvalue": null,
+        "use_ema": false,
+        "ema_momentum": 0.99,
+        "ema_overwrite_frequency": null,
+        "loss_scale_factor": null,
+        "gradient_accumulation_steps": null,
+        "initial_accumulator_value": 0.1,
+        "epsilon": 1e-07
+      }
+    },
+    "rmsprop_mse_fold_1": {
+      "class": "RMSprop",
+      "settings": {
+        "learning_rate": 0.0010000000474974513,
+        "weight_decay": null,
+        "clipnorm": null,
+        "global_clipnorm": null,
+        "clipvalue": null,
+        "use_ema": false,
+        "ema_momentum": 0.99,
+        "ema_overwrite_frequency": null,
+        "loss_scale_factor": null,
+        "gradient_accumulation_steps": null,
+        "rho": 0.9,
+        "momentum": 0.0,
+        "epsilon": 1e-07,
+        "centered": false
+      }
+    },
+    "rmsprop_mae_fold_1": {
+      "class": "RMSprop",
+      "settings": {
+        "learning_rate": 0.0010000000474974513,
+        "weight_decay": null,
+        "clipnorm": null,
+        "global_clipnorm": null,
+        "clipvalue": null,
+        "use_ema": false,
+        "ema_momentum": 0.99,
+        "ema_overwrite_frequency": null,
+        "loss_scale_factor": null,
+        "gradient_accumulation_steps": null,
+        "rho": 0.9,
+        "momentum": 0.0,
+        "epsilon": 1e-07,
+        "centered": false
+      }
+    },
+    "rmsprop_huber_fold_1": {
+      "class": "RMSprop",
+      "settings": {
+        "learning_rate": 0.009999999776482582,
+        "weight_decay": null,
+        "clipnorm": null,
+        "global_clipnorm": null,
+        "clipvalue": null,
+        "use_ema": false,
+        "ema_momentum": 0.99,
+        "ema_overwrite_frequency": null,
+        "loss_scale_factor": null,
+        "gradient_accumulation_steps": null,
+        "rho": 0.9,
+        "momentum": 0.0,
+        "epsilon": 1e-07,
+        "centered": false
+      }
+    },
+    "sgd-nesterov_mse_fold_1": {
+      "class": "SGD",
+      "settings": {
+        "learning_rate": 0.10000000149011612,
+        "weight_decay": null,
+        "clipnorm": null,
+        "global_clipnorm": null,
+        "clipvalue": null,
+        "use_ema": false,
+        "ema_momentum": 0.99,
+        "ema_overwrite_frequency": null,
+        "loss_scale_factor": null,
+        "gradient_accumulation_steps": null,
+        "momentum": 0.9,
+        "nesterov": true
+      }
+    },
+    "sgd-nesterov_mae_fold_1": {
+      "class": "SGD",
+      "settings": {
+        "learning_rate": 0.009999999776482582,
+        "weight_decay": null,
+        "clipnorm": null,
+        "global_clipnorm": null,
+        "clipvalue": null,
+        "use_ema": false,
+        "ema_momentum": 0.99,
+        "ema_overwrite_frequency": null,
+        "loss_scale_factor": null,
+        "gradient_accumulation_steps": null,
+        "momentum": 0.9,
+        "nesterov": true
+      }
+    },
+    "sgd-nesterov_huber_fold_1": {
+      "class": "SGD",
+      "settings": {
+        "learning_rate": 0.10000000149011612,
+        "weight_decay": null,
+        "clipnorm": null,
+        "global_clipnorm": null,
+        "clipvalue": null,
+        "use_ema": false,
+        "ema_momentum": 0.99,
+        "ema_overwrite_frequency": null,
+        "loss_scale_factor": null,
+        "gradient_accumulation_steps": null,
+        "momentum": 0.9,
+        "nesterov": true
+      }
+    },
+    "adam_mse_fold_2": {
+      "class": "Adam",
+      "settings": {
+        "learning_rate": 0.0010000000474974513,
+        "weight_decay": null,
+        "clipnorm": null,
+        "global_clipnorm": null,
+        "clipvalue": null,
+        "use_ema": false,
+        "ema_momentum": 0.99,
+        "ema_overwrite_frequency": null,
+        "loss_scale_factor": null,
+        "gradient_accumulation_steps": null,
+        "beta_1": 0.9,
+        "beta_2": 0.999,
+        "epsilon": 1e-07,
+        "amsgrad": false
+      }
+    },
+    "adam_mae_fold_2": {
+      "class": "Adam",
+      "settings": {
+        "learning_rate": 0.0010000000474974513,
+        "weight_decay": null,
+        "clipnorm": null,
+        "global_clipnorm": null,
+        "clipvalue": null,
+        "use_ema": false,
+        "ema_momentum": 0.99,
+        "ema_overwrite_frequency": null,
+        "loss_scale_factor": null,
+        "gradient_accumulation_steps": null,
+        "beta_1": 0.9,
+        "beta_2": 0.999,
+        "epsilon": 1e-07,
+        "amsgrad": false
+      }
+    },
+    "adam_huber_fold_2": {
+      "class": "Adam",
+      "settings": {
+        "learning_rate": 0.0010000000474974513,
+        "weight_decay": null,
+        "clipnorm": null,
+        "global_clipnorm": null,
+        "clipvalue": null,
+        "use_ema": false,
+        "ema_momentum": 0.99,
+        "ema_overwrite_frequency": null,
+        "loss_scale_factor": null,
+        "gradient_accumulation_steps": null,
+        "beta_1": 0.9,
+        "beta_2": 0.999,
+        "epsilon": 1e-07,
+        "amsgrad": false
+      }
+    },
+    "adagrad_mse_fold_2": {
+      "class": "Adagrad",
+      "settings": {
+        "learning_rate": 0.10000000149011612,
+        "weight_decay": null,
+        "clipnorm": null,
+        "global_clipnorm": null,
+        "clipvalue": null,
+        "use_ema": false,
+        "ema_momentum": 0.99,
+        "ema_overwrite_frequency": null,
+        "loss_scale_factor": null,
+        "gradient_accumulation_steps": null,
+        "initial_accumulator_value": 0.1,
+        "epsilon": 1e-07
+      }
+    },
+    "adagrad_mae_fold_2": {
+      "class": "Adagrad",
+      "settings": {
+        "learning_rate": 0.10000000149011612,
+        "weight_decay": null,
+        "clipnorm": null,
+        "global_clipnorm": null,
+        "clipvalue": null,
+        "use_ema": false,
+        "ema_momentum": 0.99,
+        "ema_overwrite_frequency": null,
+        "loss_scale_factor": null,
+        "gradient_accumulation_steps": null,
+        "initial_accumulator_value": 0.1,
+        "epsilon": 1e-07
+      }
+    },
+    "adagrad_huber_fold_2": {
+      "class": "Adagrad",
+      "settings": {
+        "learning_rate": 0.10000000149011612,
+        "weight_decay": null,
+        "clipnorm": null,
+        "global_clipnorm": null,
+        "clipvalue": null,
+        "use_ema": false,
+        "ema_momentum": 0.99,
+        "ema_overwrite_frequency": null,
+        "loss_scale_factor": null,
+        "gradient_accumulation_steps": null,
+        "initial_accumulator_value": 0.1,
+        "epsilon": 1e-07
+      }
+    },
+    "rmsprop_mse_fold_2": {
+      "class": "RMSprop",
+      "settings": {
+        "learning_rate": 0.0010000000474974513,
+        "weight_decay": null,
+        "clipnorm": null,
+        "global_clipnorm": null,
+        "clipvalue": null,
+        "use_ema": false,
+        "ema_momentum": 0.99,
+        "ema_overwrite_frequency": null,
+        "loss_scale_factor": null,
+        "gradient_accumulation_steps": null,
+        "rho": 0.9,
+        "momentum": 0.0,
+        "epsilon": 1e-07,
+        "centered": false
+      }
+    },
+    "rmsprop_mae_fold_2": {
+      "class": "RMSprop",
+      "settings": {
+        "learning_rate": 0.0010000000474974513,
+        "weight_decay": null,
+        "clipnorm": null,
+        "global_clipnorm": null,
+        "clipvalue": null,
+        "use_ema": false,
+        "ema_momentum": 0.99,
+        "ema_overwrite_frequency": null,
+        "loss_scale_factor": null,
+        "gradient_accumulation_steps": null,
+        "rho": 0.9,
+        "momentum": 0.0,
+        "epsilon": 1e-07,
+        "centered": false
+      }
+    },
+    "rmsprop_huber_fold_2": {
+      "class": "RMSprop",
+      "settings": {
+        "learning_rate": 0.009999999776482582,
+        "weight_decay": null,
+        "clipnorm": null,
+        "global_clipnorm": null,
+        "clipvalue": null,
+        "use_ema": false,
+        "ema_momentum": 0.99,
+        "ema_overwrite_frequency": null,
+        "loss_scale_factor": null,
+        "gradient_accumulation_steps": null,
+        "rho": 0.9,
+        "momentum": 0.0,
+        "epsilon": 1e-07,
+        "centered": false
+      }
+    },
+    "sgd-nesterov_mse_fold_2": {
+      "class": "SGD",
+      "settings": {
+        "learning_rate": 0.10000000149011612,
+        "weight_decay": null,
+        "clipnorm": null,
+        "global_clipnorm": null,
+        "clipvalue": null,
+        "use_ema": false,
+        "ema_momentum": 0.99,
+        "ema_overwrite_frequency": null,
+        "loss_scale_factor": null,
+        "gradient_accumulation_steps": null,
+        "momentum": 0.9,
+        "nesterov": true
+      }
+    },
+    "sgd-nesterov_mae_fold_2": {
+      "class": "SGD",
+      "settings": {
+        "learning_rate": 0.009999999776482582,
+        "weight_decay": null,
+        "clipnorm": null,
+        "global_clipnorm": null,
+        "clipvalue": null,
+        "use_ema": false,
+        "ema_momentum": 0.99,
+        "ema_overwrite_frequency": null,
+        "loss_scale_factor": null,
+        "gradient_accumulation_steps": null,
+        "momentum": 0.9,
+        "nesterov": true
+      }
+    },
+    "sgd-nesterov_huber_fold_2": {
+      "class": "SGD",
+      "settings": {
+        "learning_rate": 0.10000000149011612,
+        "weight_decay": null,
+        "clipnorm": null,
+        "global_clipnorm": null,
+        "clipvalue": null,
+        "use_ema": false,
+        "ema_momentum": 0.99,
+        "ema_overwrite_frequency": null,
+        "loss_scale_factor": null,
+        "gradient_accumulation_steps": null,
+        "momentum": 0.9,
+        "nesterov": true
+      }
+    },
+    "adam_mse_fold_3": {
+      "class": "Adam",
+      "settings": {
+        "learning_rate": 0.0010000000474974513,
+        "weight_decay": null,
+        "clipnorm": null,
+        "global_clipnorm": null,
+        "clipvalue": null,
+        "use_ema": false,
+        "ema_momentum": 0.99,
+        "ema_overwrite_frequency": null,
+        "loss_scale_factor": null,
+        "gradient_accumulation_steps": null,
+        "beta_1": 0.9,
+        "beta_2": 0.999,
+        "epsilon": 1e-07,
+        "amsgrad": false
+      }
+    },
+    "adam_mae_fold_3": {
+      "class": "Adam",
+      "settings": {
+        "learning_rate": 0.0010000000474974513,
+        "weight_decay": null,
+        "clipnorm": null,
+        "global_clipnorm": null,
+        "clipvalue": null,
+        "use_ema": false,
+        "ema_momentum": 0.99,
+        "ema_overwrite_frequency": null,
+        "loss_scale_factor": null,
+        "gradient_accumulation_steps": null,
+        "beta_1": 0.9,
+        "beta_2": 0.999,
+        "epsilon": 1e-07,
+        "amsgrad": false
+      }
+    },
+    "adam_huber_fold_3": {
+      "class": "Adam",
+      "settings": {
+        "learning_rate": 0.0010000000474974513,
+        "weight_decay": null,
+        "clipnorm": null,
+        "global_clipnorm": null,
+        "clipvalue": null,
+        "use_ema": false,
+        "ema_momentum": 0.99,
+        "ema_overwrite_frequency": null,
+        "loss_scale_factor": null,
+        "gradient_accumulation_steps": null,
+        "beta_1": 0.9,
+        "beta_2": 0.999,
+        "epsilon": 1e-07,
+        "amsgrad": false
+      }
+    },
+    "adagrad_mse_fold_3": {
+      "class": "Adagrad",
+      "settings": {
+        "learning_rate": 0.10000000149011612,
+        "weight_decay": null,
+        "clipnorm": null,
+        "global_clipnorm": null,
+        "clipvalue": null,
+        "use_ema": false,
+        "ema_momentum": 0.99,
+        "ema_overwrite_frequency": null,
+        "loss_scale_factor": null,
+        "gradient_accumulation_steps": null,
+        "initial_accumulator_value": 0.1,
+        "epsilon": 1e-07
+      }
+    },
+    "adagrad_mae_fold_3": {
+      "class": "Adagrad",
+      "settings": {
+        "learning_rate": 0.10000000149011612,
+        "weight_decay": null,
+        "clipnorm": null,
+        "global_clipnorm": null,
+        "clipvalue": null,
+        "use_ema": false,
+        "ema_momentum": 0.99,
+        "ema_overwrite_frequency": null,
+        "loss_scale_factor": null,
+        "gradient_accumulation_steps": null,
+        "initial_accumulator_value": 0.1,
+        "epsilon": 1e-07
+      }
+    },
+    "adagrad_huber_fold_3": {
+      "class": "Adagrad",
+      "settings": {
+        "learning_rate": 0.10000000149011612,
+        "weight_decay": null,
+        "clipnorm": null,
+        "global_clipnorm": null,
+        "clipvalue": null,
+        "use_ema": false,
+        "ema_momentum": 0.99,
+        "ema_overwrite_frequency": null,
+        "loss_scale_factor": null,
+        "gradient_accumulation_steps": null,
+        "initial_accumulator_value": 0.1,
+        "epsilon": 1e-07
+      }
+    },
+    "rmsprop_mse_fold_3": {
+      "class": "RMSprop",
+      "settings": {
+        "learning_rate": 0.0010000000474974513,
+        "weight_decay": null,
+        "clipnorm": null,
+        "global_clipnorm": null,
+        "clipvalue": null,
+        "use_ema": false,
+        "ema_momentum": 0.99,
+        "ema_overwrite_frequency": null,
+        "loss_scale_factor": null,
+        "gradient_accumulation_steps": null,
+        "rho": 0.9,
+        "momentum": 0.0,
+        "epsilon": 1e-07,
+        "centered": false
+      }
+    },
+    "rmsprop_mae_fold_3": {
+      "class": "RMSprop",
+      "settings": {
+        "learning_rate": 0.0010000000474974513,
+        "weight_decay": null,
+        "clipnorm": null,
+        "global_clipnorm": null,
+        "clipvalue": null,
+        "use_ema": false,
+        "ema_momentum": 0.99,
+        "ema_overwrite_frequency": null,
+        "loss_scale_factor": null,
+        "gradient_accumulation_steps": null,
+        "rho": 0.9,
+        "momentum": 0.0,
+        "epsilon": 1e-07,
+        "centered": false
+      }
+    },
+    "rmsprop_huber_fold_3": {
+      "class": "RMSprop",
+      "settings": {
+        "learning_rate": 0.009999999776482582,
+        "weight_decay": null,
+        "clipnorm": null,
+        "global_clipnorm": null,
+        "clipvalue": null,
+        "use_ema": false,
+        "ema_momentum": 0.99,
+        "ema_overwrite_frequency": null,
+        "loss_scale_factor": null,
+        "gradient_accumulation_steps": null,
+        "rho": 0.9,
+        "momentum": 0.0,
+        "epsilon": 1e-07,
+        "centered": false
+      }
+    },
+    "sgd-nesterov_mse_fold_3": {
+      "class": "SGD",
+      "settings": {
+        "learning_rate": 0.10000000149011612,
+        "weight_decay": null,
+        "clipnorm": null,
+        "global_clipnorm": null,
+        "clipvalue": null,
+        "use_ema": false,
+        "ema_momentum": 0.99,
+        "ema_overwrite_frequency": null,
+        "loss_scale_factor": null,
+        "gradient_accumulation_steps": null,
+        "momentum": 0.9,
+        "nesterov": true
+      }
+    },
+    "sgd-nesterov_mae_fold_3": {
+      "class": "SGD",
+      "settings": {
+        "learning_rate": 0.009999999776482582,
+        "weight_decay": null,
+        "clipnorm": null,
+        "global_clipnorm": null,
+        "clipvalue": null,
+        "use_ema": false,
+        "ema_momentum": 0.99,
+        "ema_overwrite_frequency": null,
+        "loss_scale_factor": null,
+        "gradient_accumulation_steps": null,
+        "momentum": 0.9,
+        "nesterov": true
+      }
+    },
+    "sgd-nesterov_huber_fold_3": {
+      "class": "SGD",
+      "settings": {
+        "learning_rate": 0.10000000149011612,
+        "weight_decay": null,
+        "clipnorm": null,
+        "global_clipnorm": null,
+        "clipvalue": null,
+        "use_ema": false,
+        "ema_momentum": 0.99,
+        "ema_overwrite_frequency": null,
+        "loss_scale_factor": null,
+        "gradient_accumulation_steps": null,
+        "momentum": 0.9,
+        "nesterov": true
+      }
+    },
+    "adam_mse_fold_4": {
+      "class": "Adam",
+      "settings": {
+        "learning_rate": 0.0010000000474974513,
+        "weight_decay": null,
+        "clipnorm": null,
+        "global_clipnorm": null,
+        "clipvalue": null,
+        "use_ema": false,
+        "ema_momentum": 0.99,
+        "ema_overwrite_frequency": null,
+        "loss_scale_factor": null,
+        "gradient_accumulation_steps": null,
+        "beta_1": 0.9,
+        "beta_2": 0.999,
+        "epsilon": 1e-07,
+        "amsgrad": false
+      }
+    },
+    "adam_mae_fold_4": {
+      "class": "Adam",
+      "settings": {
+        "learning_rate": 0.0010000000474974513,
+        "weight_decay": null,
+        "clipnorm": null,
+        "global_clipnorm": null,
+        "clipvalue": null,
+        "use_ema": false,
+        "ema_momentum": 0.99,
+        "ema_overwrite_frequency": null,
+        "loss_scale_factor": null,
+        "gradient_accumulation_steps": null,
+        "beta_1": 0.9,
+        "beta_2": 0.999,
+        "epsilon": 1e-07,
+        "amsgrad": false
+      }
+    },
+    "adam_huber_fold_4": {
+      "class": "Adam",
+      "settings": {
+        "learning_rate": 0.0010000000474974513,
+        "weight_decay": null,
+        "clipnorm": null,
+        "global_clipnorm": null,
+        "clipvalue": null,
+        "use_ema": false,
+        "ema_momentum": 0.99,
+        "ema_overwrite_frequency": null,
+        "loss_scale_factor": null,
+        "gradient_accumulation_steps": null,
+        "beta_1": 0.9,
+        "beta_2": 0.999,
+        "epsilon": 1e-07,
+        "amsgrad": false
+      }
+    },
+    "adagrad_mse_fold_4": {
+      "class": "Adagrad",
+      "settings": {
+        "learning_rate": 0.10000000149011612,
+        "weight_decay": null,
+        "clipnorm": null,
+        "global_clipnorm": null,
+        "clipvalue": null,
+        "use_ema": false,
+        "ema_momentum": 0.99,
+        "ema_overwrite_frequency": null,
+        "loss_scale_factor": null,
+        "gradient_accumulation_steps": null,
+        "initial_accumulator_value": 0.1,
+        "epsilon": 1e-07
+      }
+    },
+    "adagrad_mae_fold_4": {
+      "class": "Adagrad",
+      "settings": {
+        "learning_rate": 0.10000000149011612,
+        "weight_decay": null,
+        "clipnorm": null,
+        "global_clipnorm": null,
+        "clipvalue": null,
+        "use_ema": false,
+        "ema_momentum": 0.99,
+        "ema_overwrite_frequency": null,
+        "loss_scale_factor": null,
+        "gradient_accumulation_steps": null,
+        "initial_accumulator_value": 0.1,
+        "epsilon": 1e-07
+      }
+    },
+    "adagrad_huber_fold_4": {
+      "class": "Adagrad",
+      "settings": {
+        "learning_rate": 0.10000000149011612,
+        "weight_decay": null,
+        "clipnorm": null,
+        "global_clipnorm": null,
+        "clipvalue": null,
+        "use_ema": false,
+        "ema_momentum": 0.99,
+        "ema_overwrite_frequency": null,
+        "loss_scale_factor": null,
+        "gradient_accumulation_steps": null,
+        "initial_accumulator_value": 0.1,
+        "epsilon": 1e-07
+      }
+    },
+    "rmsprop_mse_fold_4": {
+      "class": "RMSprop",
+      "settings": {
+        "learning_rate": 0.0010000000474974513,
+        "weight_decay": null,
+        "clipnorm": null,
+        "global_clipnorm": null,
+        "clipvalue": null,
+        "use_ema": false,
+        "ema_momentum": 0.99,
+        "ema_overwrite_frequency": null,
+        "loss_scale_factor": null,
+        "gradient_accumulation_steps": null,
+        "rho": 0.9,
+        "momentum": 0.0,
+        "epsilon": 1e-07,
+        "centered": false
+      }
+    },
+    "rmsprop_mae_fold_4": {
+      "class": "RMSprop",
+      "settings": {
+        "learning_rate": 0.0010000000474974513,
+        "weight_decay": null,
+        "clipnorm": null,
+        "global_clipnorm": null,
+        "clipvalue": null,
+        "use_ema": false,
+        "ema_momentum": 0.99,
+        "ema_overwrite_frequency": null,
+        "loss_scale_factor": null,
+        "gradient_accumulation_steps": null,
+        "rho": 0.9,
+        "momentum": 0.0,
+        "epsilon": 1e-07,
+        "centered": false
+      }
+    },
+    "rmsprop_huber_fold_4": {
+      "class": "RMSprop",
+      "settings": {
+        "learning_rate": 0.009999999776482582,
+        "weight_decay": null,
+        "clipnorm": null,
+        "global_clipnorm": null,
+        "clipvalue": null,
+        "use_ema": false,
+        "ema_momentum": 0.99,
+        "ema_overwrite_frequency": null,
+        "loss_scale_factor": null,
+        "gradient_accumulation_steps": null,
+        "rho": 0.9,
+        "momentum": 0.0,
+        "epsilon": 1e-07,
+        "centered": false
+      }
+    },
+    "sgd-nesterov_mse_fold_4": {
+      "class": "SGD",
+      "settings": {
+        "learning_rate": 0.10000000149011612,
+        "weight_decay": null,
+        "clipnorm": null,
+        "global_clipnorm": null,
+        "clipvalue": null,
+        "use_ema": false,
+        "ema_momentum": 0.99,
+        "ema_overwrite_frequency": null,
+        "loss_scale_factor": null,
+        "gradient_accumulation_steps": null,
+        "momentum": 0.9,
+        "nesterov": true
+      }
+    },
+    "sgd-nesterov_mae_fold_4": {
+      "class": "SGD",
+      "settings": {
+        "learning_rate": 0.009999999776482582,
+        "weight_decay": null,
+        "clipnorm": null,
+        "global_clipnorm": null,
+        "clipvalue": null,
+        "use_ema": false,
+        "ema_momentum": 0.99,
+        "ema_overwrite_frequency": null,
+        "loss_scale_factor": null,
+        "gradient_accumulation_steps": null,
+        "momentum": 0.9,
+        "nesterov": true
+      }
+    },
+    "sgd-nesterov_huber_fold_4": {
+      "class": "SGD",
+      "settings": {
+        "learning_rate": 0.10000000149011612,
+        "weight_decay": null,
+        "clipnorm": null,
+        "global_clipnorm": null,
+        "clipvalue": null,
+        "use_ema": false,
+        "ema_momentum": 0.99,
+        "ema_overwrite_frequency": null,
+        "loss_scale_factor": null,
+        "gradient_accumulation_steps": null,
+        "momentum": 0.9,
+        "nesterov": true
+      }
+    },
+    "adam_mse_fold_5": {
+      "class": "Adam",
+      "settings": {
+        "learning_rate": 0.0010000000474974513,
+        "weight_decay": null,
+        "clipnorm": null,
+        "global_clipnorm": null,
+        "clipvalue": null,
+        "use_ema": false,
+        "ema_momentum": 0.99,
+        "ema_overwrite_frequency": null,
+        "loss_scale_factor": null,
+        "gradient_accumulation_steps": null,
+        "beta_1": 0.9,
+        "beta_2": 0.999,
+        "epsilon": 1e-07,
+        "amsgrad": false
+      }
+    },
+    "adam_mae_fold_5": {
+      "class": "Adam",
+      "settings": {
+        "learning_rate": 0.0010000000474974513,
+        "weight_decay": null,
+        "clipnorm": null,
+        "global_clipnorm": null,
+        "clipvalue": null,
+        "use_ema": false,
+        "ema_momentum": 0.99,
+        "ema_overwrite_frequency": null,
+        "loss_scale_factor": null,
+        "gradient_accumulation_steps": null,
+        "beta_1": 0.9,
+        "beta_2": 0.999,
+        "epsilon": 1e-07,
+        "amsgrad": false
+      }
+    },
+    "adam_huber_fold_5": {
+      "class": "Adam",
+      "settings": {
+        "learning_rate": 0.0010000000474974513,
+        "weight_decay": null,
+        "clipnorm": null,
+        "global_clipnorm": null,
+        "clipvalue": null,
+        "use_ema": false,
+        "ema_momentum": 0.99,
+        "ema_overwrite_frequency": null,
+        "loss_scale_factor": null,
+        "gradient_accumulation_steps": null,
+        "beta_1": 0.9,
+        "beta_2": 0.999,
+        "epsilon": 1e-07,
+        "amsgrad": false
+      }
+    },
+    "adagrad_mse_fold_5": {
+      "class": "Adagrad",
+      "settings": {
+        "learning_rate": 0.10000000149011612,
+        "weight_decay": null,
+        "clipnorm": null,
+        "global_clipnorm": null,
+        "clipvalue": null,
+        "use_ema": false,
+        "ema_momentum": 0.99,
+        "ema_overwrite_frequency": null,
+        "loss_scale_factor": null,
+        "gradient_accumulation_steps": null,
+        "initial_accumulator_value": 0.1,
+        "epsilon": 1e-07
+      }
+    },
+    "adagrad_mae_fold_5": {
+      "class": "Adagrad",
+      "settings": {
+        "learning_rate": 0.10000000149011612,
+        "weight_decay": null,
+        "clipnorm": null,
+        "global_clipnorm": null,
+        "clipvalue": null,
+        "use_ema": false,
+        "ema_momentum": 0.99,
+        "ema_overwrite_frequency": null,
+        "loss_scale_factor": null,
+        "gradient_accumulation_steps": null,
+        "initial_accumulator_value": 0.1,
+        "epsilon": 1e-07
+      }
+    },
+    "adagrad_huber_fold_5": {
+      "class": "Adagrad",
+      "settings": {
+        "learning_rate": 0.10000000149011612,
+        "weight_decay": null,
+        "clipnorm": null,
+        "global_clipnorm": null,
+        "clipvalue": null,
+        "use_ema": false,
+        "ema_momentum": 0.99,
+        "ema_overwrite_frequency": null,
+        "loss_scale_factor": null,
+        "gradient_accumulation_steps": null,
+        "initial_accumulator_value": 0.1,
+        "epsilon": 1e-07
+      }
+    },
+    "rmsprop_mse_fold_5": {
+      "class": "RMSprop",
+      "settings": {
+        "learning_rate": 0.0010000000474974513,
+        "weight_decay": null,
+        "clipnorm": null,
+        "global_clipnorm": null,
+        "clipvalue": null,
+        "use_ema": false,
+        "ema_momentum": 0.99,
+        "ema_overwrite_frequency": null,
+        "loss_scale_factor": null,
+        "gradient_accumulation_steps": null,
+        "rho": 0.9,
+        "momentum": 0.0,
+        "epsilon": 1e-07,
+        "centered": false
+      }
+    },
+    "rmsprop_mae_fold_5": {
+      "class": "RMSprop",
+      "settings": {
+        "learning_rate": 0.0010000000474974513,
+        "weight_decay": null,
+        "clipnorm": null,
+        "global_clipnorm": null,
+        "clipvalue": null,
+        "use_ema": false,
+        "ema_momentum": 0.99,
+        "ema_overwrite_frequency": null,
+        "loss_scale_factor": null,
+        "gradient_accumulation_steps": null,
+        "rho": 0.9,
+        "momentum": 0.0,
+        "epsilon": 1e-07,
+        "centered": false
+      }
+    },
+    "rmsprop_huber_fold_5": {
+      "class": "RMSprop",
+      "settings": {
+        "learning_rate": 0.009999999776482582,
+        "weight_decay": null,
+        "clipnorm": null,
+        "global_clipnorm": null,
+        "clipvalue": null,
+        "use_ema": false,
+        "ema_momentum": 0.99,
+        "ema_overwrite_frequency": null,
+        "loss_scale_factor": null,
+        "gradient_accumulation_steps": null,
+        "rho": 0.9,
+        "momentum": 0.0,
+        "epsilon": 1e-07,
+        "centered": false
+      }
+    },
+    "sgd-nesterov_mse_fold_5": {
+      "class": "SGD",
+      "settings": {
+        "learning_rate": 0.10000000149011612,
+        "weight_decay": null,
+        "clipnorm": null,
+        "global_clipnorm": null,
+        "clipvalue": null,
+        "use_ema": false,
+        "ema_momentum": 0.99,
+        "ema_overwrite_frequency": null,
+        "loss_scale_factor": null,
+        "gradient_accumulation_steps": null,
+        "momentum": 0.9,
+        "nesterov": true
+      }
+    },
+    "sgd-nesterov_mae_fold_5": {
+      "class": "SGD",
+      "settings": {
+        "learning_rate": 0.009999999776482582,
+        "weight_decay": null,
+        "clipnorm": null,
+        "global_clipnorm": null,
+        "clipvalue": null,
+        "use_ema": false,
+        "ema_momentum": 0.99,
+        "ema_overwrite_frequency": null,
+        "loss_scale_factor": null,
+        "gradient_accumulation_steps": null,
+        "momentum": 0.9,
+        "nesterov": true
+      }
+    },
+    "sgd-nesterov_huber_fold_5": {
+      "class": "SGD",
+      "settings": {
+        "learning_rate": 0.10000000149011612,
+        "weight_decay": null,
+        "clipnorm": null,
+        "global_clipnorm": null,
+        "clipvalue": null,
+        "use_ema": false,
+        "ema_momentum": 0.99,
+        "ema_overwrite_frequency": null,
+        "loss_scale_factor": null,
+        "gradient_accumulation_steps": null,
+        "momentum": 0.9,
+        "nesterov": true
+      }
+    }
+  },
+  "loss_definitions": {
+    "MSE": {
+      "class": "MeanSquaredError",
+      "settings": {
+        "reduction": "sum_over_batch_size"
+      },
+      "huber_delta": null
+    },
+    "MAE": {
+      "class": "MeanAbsoluteError",
+      "settings": {
+        "reduction": "sum_over_batch_size"
+      },
+      "huber_delta": null
+    },
+    "Huber": {
+      "class": "Huber",
+      "settings": {
+        "reduction": "sum_over_batch_size"
+      },
+      "huber_delta": 0.1
+    }
+  },
+  "stage5_directory": "results/stage5_loss_lr_screening/screening_20261010T054644Z_d2ae382d",
+  "screening_evidence_sha256": {
+    "results/stage5_loss_lr_screening/screening_20261010T054644Z_d2ae382d/protocol.json": "482c3b70eb74e5ec6b5eac8c4f73663b88ef97c51b3658583767fb307a612331",
+    "results/stage5_loss_lr_screening/screening_20261010T054644Z_d2ae382d/all_runs.json": "48ac67364d02453d014b577a59d38814891a6b9bcd3f27e528de73d797c51ea4",
+    "results/stage5_loss_lr_screening/screening_20261010T054644Z_d2ae382d/selected_learning_rates.json": "17e9844c376551b0aec0f24b3104a4c308d54ecb1b364f9b9cace8973a5b92ba",
+    "results/stage4_lr_sensitivity/combined_final_lr_screening/selected_learning_rates.json": "1510085183943ab9a9ed455b071facd516c4977a78e8d10426fa61138b23677a",
+    "results/stage4_lr_sensitivity/combined_final_lr_screening/lr_screening_results.csv": "1c33e2767cbac8e65fba7aa66432180f0d63fe40b10772f8a1144cde2681997a"
+  },
+  "software_versions": {
+    "python": "3.13.16",
+    "tensorflow": "2.21.0",
+    "keras": "3.15.1",
+    "numpy": "2.5.3",
+    "scikit_image": "0.26.0"
+  },
+  "source_hash_policy": "SHA-256 after CRLF-to-LF normalization",
+  "source_sha256": {
+    "experiment_config.py": "7b27f679405fd9eb42069ac5aabf62734886094457a43ba7e9201f8ff661768d",
+    "stage2_unet.py": "6761dd8cac1afbdb47c8ef1691402244a00abe419236cabe7a0d4ded58bc7b44",
+    "stage4_lr_sensitivity.py": "cb9709a9c4a40adf89c6a515b96cc9faab8b80177a35ffe5c01eccc4836f37eb",
+    "stage5_loss_lr_screening.py": "7b4babbadba28a5ca5db2a348837c5057a83c90f31139e53786f17f9db55cee2",
+    "stage6_recovery_cross_validation.py": "905719bf884e44211ee7d74176076198fe20db005556736eefb35475011db372"
+  },
+  "metrics": {
+    "mse": "Mean validation pixel MSE",
+    "rmse": "sqrt(mean validation MSE)",
+    "nrmse_percent": "100 * RMSE",
+    "psnr": "Mean per-image PSNR; max_val=1",
+    "ssim": "Mean per-image SSIM; range=1, win=7, uniform/sample covariance"
+  },
+  "fold_summary": "Mean and sample SD (ddof=1); mark complete only if all five folds completed",
+  "timing_boundary": "time.perf_counter around model.fit only",
+  "test_policy": "Both test sets excluded; IDs 500-574 reserved for later final evaluation",
+  "resume_rule": "Skip verified completed runs; restart others at epoch 1 with canonical weights/fresh optimizer",
+  "interpretation": "Rates were tuned on Fold 1 of this development pool; this is not independent nested CV",
+  "protocol_sha256": "f6164b2f2bcfb11a3839bd828e0b6a84bbe7afdc316cbcf7939ef29abed8875b"
+}

@@ -1,0 +1,12 @@
+{
+  "run_id": "adagrad_huber_lr_1e-01",
+  "optimizer": "Adagrad",
+  "loss": "Huber",
+  "learning_rate": 0.1,
+  "status": "completed",
+  "validation_mse": 0.0005422293907031417,
+  "validation_psnr": 32.658287048339844,
+  "epochs_run": 50,
+  "training_time_seconds": 2983.4622628750512,
+  "error": ""
+}

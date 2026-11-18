@@ -1,6 +1,7 @@
-# Preserve document and figure bytes when recording submission snapshots.
-*.pdf binary
-*.docx binary
-*.png binary
-*.jpeg binary
-*.jpg binary
+# Preserve imported source/result bytes, including historical line endings.
+# Several original run records contain source hashes.
+* -text
+*.py diff
+*.md diff
+*.json diff
+*.csv diff

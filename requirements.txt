@@ -1,0 +1,8 @@
+# Direct dependencies for training/model checks; not a reconstruction of
+# Chisom's original environment (its exact package versions were not recorded).
+tensorflow
+numpy
+scikit-image
+scikit-learn
+matplotlib
+h5py

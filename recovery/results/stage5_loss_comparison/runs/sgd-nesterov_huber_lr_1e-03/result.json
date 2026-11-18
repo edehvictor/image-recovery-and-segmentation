@@ -1,0 +1,12 @@
+{
+  "run_id": "sgd-nesterov_huber_lr_1e-03",
+  "optimizer": "SGD-Nesterov",
+  "loss": "Huber",
+  "learning_rate": 0.001,
+  "status": "completed",
+  "validation_mse": 0.0028905579820275307,
+  "validation_psnr": 25.390239715576172,
+  "epochs_run": 50,
+  "training_time_seconds": 2531.8105861669173,
+  "error": ""
+}

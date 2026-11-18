@@ -1,0 +1,10 @@
+{
+  "segmentation/stage7_summary.py": {
+    "original_sha256": "c88d16b527301e5491842ee9f4e3883915da50474321ff7af8c218959939c8f6",
+    "packaged_sha256": "8d9c18ac625bd037af8c335478f64c3f6394303b70368a4eb3bf5ce7bd8a93cd"
+  },
+  "segmentation/test_stage7_isic_segmentation.py": {
+    "original_sha256": "449919b6fd5d64968163cb2ac6b1a77fc070cd98c2df9eebf99f1267189aea22",
+    "packaged_sha256": "fb032d58da97fe64387421f96e7ec1886878cc10f767e3fd86a41d9afebeceb6"
+  }
+}

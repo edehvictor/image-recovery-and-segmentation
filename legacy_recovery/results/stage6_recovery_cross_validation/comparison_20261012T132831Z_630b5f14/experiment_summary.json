@@ -1,0 +1,15 @@
+{
+  "stage": 6,
+  "experiment_status": "running",
+  "planned_runs": 60,
+  "completed_runs": 4,
+  "run_status_counts": {
+    "completed": 4,
+    "pending": 56
+  },
+  "pairs_with_all_five_folds_completed": 0,
+  "training_seconds_completed_runs": 5229.341411502,
+  "protocol_sha256": "f6164b2f2bcfb11a3839bd828e0b6a84bbe7afdc316cbcf7939ef29abed8875b",
+  "final_test_untouched": true,
+  "updated_at_utc": "2026-10-12T14:57:34.046677+00:00"
+}

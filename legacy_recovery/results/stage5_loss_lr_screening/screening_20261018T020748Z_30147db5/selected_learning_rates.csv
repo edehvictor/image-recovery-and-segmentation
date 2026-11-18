@@ -1,0 +1,9 @@
+optimizer,loss,selection_status,completed_rates,run_id,learning_rate,best_validation_loss,best_epoch,validation_mse,validation_rmse,validation_nrmse_percent,validation_psnr,validation_ssim,training_time_seconds,best_weights_file
+Adam,MAE,selected,4,adam_mae_lr_1e-03,0.001,0.12318258732557297,1,0.05893611162900925,0.24276760827797692,24.27676082779769,12.296186447143555,0.5377821460107245,360.4090017569997,adam_mae_lr_1e-03/attempts/attempt_20261018T021349Z_05bd7582/best_weights.npz
+Adam,Huber,selected,4,adam_huber_lr_1e-03,0.001,0.010194242000579834,1,0.05893611162900925,0.24276760827797692,24.27676082779769,12.296186447143555,0.5377821460107245,296.85725040399984,adam_huber_lr_1e-03/attempts/attempt_20261018T023826Z_a47ffa5c/best_weights.npz
+Adagrad,MAE,selected,4,adagrad_mae_lr_1e-01,0.1,0.0027216258458793163,49,0.00022591714514419436,0.015030540414243074,1.5030540414243074,36.46098026948817,0.9884087305392171,2346.051175852999,adagrad_mae_lr_1e-01/attempts/attempt_20261019T011432Z_f97813a9/best_weights.npz
+Adagrad,Huber,selected,4,adagrad_huber_lr_1e-01,0.1,0.0002388365101069212,50,0.0005422358517535031,0.023285958252850646,2.3285958252850647,32.658234944063075,0.8782513963284787,2322.2061646330003,adagrad_huber_lr_1e-01/attempts/attempt_20261019T035050Z_a3e5fa00/best_weights.npz
+RMSProp,MAE,selected,1,rmsprop_mae_lr_1e-04,0.0001,0.12318500131368637,8,0.05893616005778313,0.24276770802102804,24.276770802102803,12.29617800993078,0.5377791151350401,369.69343376399775,rmsprop_mae_lr_1e-04/attempts/attempt_20261019T042947Z_0a963e1a/best_weights.npz
+RMSProp,Huber,no_completed_run,0,,,,,,,,,,,
+SGD-Nesterov,MAE,no_completed_run,0,,,,,,,,,,,
+SGD-Nesterov,Huber,no_completed_run,0,,,,,,,,,,,

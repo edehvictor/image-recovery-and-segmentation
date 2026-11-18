@@ -1,0 +1,25 @@
+{
+  "stage": 5,
+  "experiment_status": "running",
+  "updated_at_utc": "2026-10-19T04:36:11.895307+00:00",
+  "planned_runs": 32,
+  "run_status_counts": {
+    "completed": 17,
+    "pending": 15
+  },
+  "completed_runs": 17,
+  "optimizer_loss_pairs_with_a_selected_rate": 5,
+  "training_started": true,
+  "initial_weights_sha256": "3d8af7fb3e7d315c2358a71bef8213afa7e6e29217099ad230fe89951a531926",
+  "split_sha256": "b7cca054d0978d0ebeb4a87ab85da4421771e18bdd0fc430e045519ee0a30caf",
+  "protocol_sha256": "3407fbcb3e5210b270ef19899f0a46568a6f12adf974dab5ba32768a8b64b0c7",
+  "screening_losses": [
+    "MAE",
+    "Huber"
+  ],
+  "mse_rerun": false,
+  "final_test_untouched": true,
+  "selection_rule": "Within each optimizer-loss pair: lowest raw best val_loss; exact ties use smaller LR",
+  "selection_scope": "Completed rates within each optimizer-loss pair; no cross-loss ranking",
+  "completed_run_training_seconds": 23540.040194446
+}

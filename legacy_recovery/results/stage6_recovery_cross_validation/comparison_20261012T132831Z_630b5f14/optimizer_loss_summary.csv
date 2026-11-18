@@ -1,0 +1,13 @@
+optimizer,loss,learning_rate,planned_folds,completed_folds,all_five_folds_completed,run_status_counts,validation_mse_mean,validation_mse_sd,validation_rmse_mean,validation_rmse_sd,validation_nrmse_percent_mean,validation_nrmse_percent_sd,validation_psnr_mean,validation_psnr_sd,validation_ssim_mean,validation_ssim_sd,training_time_seconds_mean,training_time_seconds_sd,best_epoch_mean,best_epoch_sd,stopping_epoch_mean,stopping_epoch_sd
+Adam,MSE,0.001,5,1,False,"{""completed"": 1, ""pending"": 4}",0.05893611162900925,,0.24276760827797692,,24.27676082779769,,12.296186447143555,,0.5377821460107245,,455.960319831,,1.0,,6.0,
+Adam,MAE,0.001,5,1,False,"{""completed"": 1, ""pending"": 4}",0.05893611162900925,,0.24276760827797692,,24.27676082779769,,12.296186447143555,,0.5377821460107245,,404.03711512099994,,1.0,,6.0,
+Adam,Huber,0.001,5,1,False,"{""completed"": 1, ""pending"": 4}",0.05893611162900925,,0.24276760827797692,,24.27676082779769,,12.296186447143555,,0.5377821460107245,,584.560974841,,1.0,,6.0,
+Adagrad,MSE,0.1,5,1,False,"{""completed"": 1, ""pending"": 4}",0.00034018734004348516,,0.018444168185187564,,1.8444168185187564,,34.68304631850299,,0.9298010476696016,,3784.783001709,,45.0,,48.0,
+Adagrad,MAE,0.1,5,0,False,"{""pending"": 5}",,,,,,,,,,,,,,,,
+Adagrad,Huber,0.1,5,0,False,"{""pending"": 5}",,,,,,,,,,,,,,,,
+RMSProp,MSE,0.001,5,0,False,"{""pending"": 5}",,,,,,,,,,,,,,,,
+RMSProp,MAE,0.001,5,0,False,"{""pending"": 5}",,,,,,,,,,,,,,,,
+RMSProp,Huber,0.01,5,0,False,"{""pending"": 5}",,,,,,,,,,,,,,,,
+SGD-Nesterov,MSE,0.1,5,0,False,"{""pending"": 5}",,,,,,,,,,,,,,,,
+SGD-Nesterov,MAE,0.01,5,0,False,"{""pending"": 5}",,,,,,,,,,,,,,,,
+SGD-Nesterov,Huber,0.1,5,0,False,"{""pending"": 5}",,,,,,,,,,,,,,,,

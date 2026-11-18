@@ -1,0 +1,74 @@
+{
+  "development_samples": 425,
+  "selected_screening_fold": 1,
+  "training_samples": 340,
+  "validation_samples": 85,
+  "training_validation_disjoint": true,
+  "fold_union_equals_development": true,
+  "final_fresh_test_range": [
+    500,
+    574
+  ],
+  "final_fresh_test_samples": 75,
+  "final_test_development_disjoint": true,
+  "final_test_untouched": true,
+  "pilot_test_array_loaded": false,
+  "test_images_generated": false,
+  "screening_images_generated": false,
+  "optimizers": 4,
+  "losses": 2,
+  "screening_losses": [
+    "MAE",
+    "Huber"
+  ],
+  "learning_rates": [
+    0.0001,
+    0.001,
+    0.01,
+    0.1
+  ],
+  "learning_rate_count": 4,
+  "total_screening_runs": 32,
+  "optimizer_loss_lr_configurations_instantiated": 32,
+  "huber_delta": 0.1,
+  "raw_best_and_early_stopping_callbacks_instantiated": true,
+  "sgd_momentum": 0.9,
+  "sgd_nesterov": true,
+  "max_epochs": 50,
+  "patience": 5,
+  "min_delta": 1e-05,
+  "early_stopping_restore_best_weights": false,
+  "post_fit_restore_raw_best_weights": true,
+  "tensorflow_version": "2.21.0",
+  "software_versions": {
+    "python": "3.13.16",
+    "tensorflow": "2.21.0",
+    "keras": "3.15.1",
+    "numpy": "2.5.3",
+    "scikit_image": "0.26.0"
+  },
+  "python_executable": "/home/devnomso/fyp-tensorflow/bin/python",
+  "deterministic_operations": "enabled",
+  "unet_parameter_count": 120681,
+  "trainable_parameter_count": 120681,
+  "input_shape": [
+    null,
+    512,
+    512,
+    1
+  ],
+  "output_shape": [
+    null,
+    512,
+    512,
+    1
+  ],
+  "initial_weights_sha256": "3d8af7fb3e7d315c2358a71bef8213afa7e6e29217099ad230fe89951a531926",
+  "split_sha256": "b7cca054d0978d0ebeb4a87ab85da4421771e18bdd0fc430e045519ee0a30caf",
+  "protocol_sha256": "3407fbcb3e5210b270ef19899f0a46568a6f12adf974dab5ba32768a8b64b0c7",
+  "canonical_weights_source": "fresh seeded U-Net",
+  "results_root": "/mnt/c/Users/HP ELITEBOOK 830 G8/Desktop/FINAL YEAR PROJECT/image-recovery-project/results/stage5_loss_lr_screening",
+  "results_separate_from_stage3_and_stage4": true,
+  "mse_will_be_rerun": false,
+  "training_started": false
+}

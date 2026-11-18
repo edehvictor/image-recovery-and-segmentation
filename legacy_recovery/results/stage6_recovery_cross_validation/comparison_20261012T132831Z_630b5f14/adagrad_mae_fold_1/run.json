@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "stage": 6,
+  "attempt": "attempt_20261012T145734Z_ebac2d90",
+  "restart_reason": "FileNotFoundError: [Errno 2] No such file or directory: '/mnt/c/Users/HP ELITEBOOK 830 G8/Desktop/FINAL YEAR PROJECT/image-recovery-project/results/stage6_recovery_cross_validation/comparison_20261012T132831Z_630b5f14/adagrad_mae_fold_1/run.json'",
+  "result": {
+    "run_id": "adagrad_mae_fold_1",
+    "optimizer": "Adagrad",
+    "loss": "MAE",
+    "learning_rate": 0.1,
+    "fold": 1,
+    "run_status": "running",
+    "best_epoch": null,
+    "stopping_epoch": 0,
+    "completed_epochs": 0,
+    "best_validation_loss": null,
+    "restored_validation_loss": null,
+    "best_validation_mse_at_epoch": null,
+    "validation_mse": null,
+    "validation_rmse": null,
+    "validation_nrmse_percent": null,
+    "validation_psnr": null,
+    "validation_ssim": null,
+    "training_time_seconds": null,
+    "initial_weights_sha256": "3d8af7fb3e7d315c2358a71bef8213afa7e6e29217099ad230fe89951a531926",
+    "split_sha256": "b7cca054d0978d0ebeb4a87ab85da4421771e18bdd0fc430e045519ee0a30caf",
+    "protocol_sha256": "f6164b2f2bcfb11a3839bd828e0b6a84bbe7afdc316cbcf7939ef29abed8875b",
+    "optimizer_definition_sha256": "66f34294d6e57c536d430d0fcddc6e2560cdf24b63c513f060b0c306e10b4800",
+    "loss_definition_sha256": "a45fd81f7a3b2cf4d21a4dc41f3a8e5fc2f6f914fbd3ef03f8aed7dac3d7095f",
+    "history_file": "adagrad_mae_fold_1/attempts/attempt_20261012T145734Z_ebac2d90/history.csv",
+    "history_json_file": "adagrad_mae_fold_1/attempts/attempt_20261012T145734Z_ebac2d90/history.json",
+    "history_file_sha256": null,
+    "history_json_file_sha256": null,
+    "best_weights_file": null,
+    "best_weights_file_sha256": null,
+    "best_model_weights_sha256": null,
+    "error": ""
+  },
+  "optimizer_definition": {
+    "class": "Adagrad",
+    "settings": {
+      "learning_rate": 0.10000000149011612,
+      "weight_decay": null,
+      "clipnorm": null,
+      "global_clipnorm": null,
+      "clipvalue": null,
+      "use_ema": false,
+      "ema_momentum": 0.99,
+      "ema_overwrite_frequency": null,
+      "loss_scale_factor": null,
+      "gradient_accumulation_steps": null,
+      "initial_accumulator_value": 0.1,
+      "epsilon": 1e-07
+    }
+  },
+  "loss_definition": {
+    "class": "MeanAbsoluteError",
+    "settings": {
+      "reduction": "sum_over_batch_size"
+    },
+    "huber_delta": null
+  }
+}

@@ -1,10 +1,12 @@
-# Coding and experiment instructions
+# Repository instructions
 
-- Read `PROJECT_CONTEXT.md` before substantial coding or experimental changes; treat it as the authoritative project summary.
-- Inspect existing scripts, data, and saved splits first. Preserve pilot scripts, datasets, and results unless the user explicitly authorizes changes.
-- Put revised experiments in new files, beginning with `experiment_config.py` and `stage4_lr_sensitivity.py`. Reuse the existing compact U-Net where appropriate.
-- Keep the 75 held-out test samples untouched during all tuning. Select learning rates using validation results, freeze them, then perform the main comparison.
-- Reuse saved development/test splits and identical cross-validation folds. Use seed 42, consistent training controls, and the same initial weights where possible.
-- Save configurations, histories, metrics, timing, checkpoints, and run status reproducibly in separate experiment output directories. Record failures/divergence without losing completed runs.
-- Explain the purpose of major changes before implementation. Document unresolved methodological choices before execution; never invent project decisions or results.
-- Do not launch long training runs merely to validate context files or setup changes. Run checks appropriate to the actual coding task and report what was verified.
+Read README.md, PROJECT_CONTEXT.md and docs/PROVENANCE.md before changes.
+Preserve imported result records and experimental source; do not rewrite results
+or run training/evaluation as a cleanup check. New summaries go under reports/.
+The primary article recovery workflow is recovery/stage5_loss_comparison.py.
+The separate historical Stage 4/5/6 workflow is under legacy_recovery/.
+Do not merge their selection rules or describe the unfinished Stage 6 as complete.
+Never use held-out test scores to choose learning rates or other settings.
+Keep data, logs, environments, weights and full prediction archives out of Git.
+Record assistance and verification in AI_USAGE_LOG.md. Do not claim independent
+human verification unless the person has actually confirmed it.

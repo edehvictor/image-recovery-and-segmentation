@@ -1,0 +1,13 @@
+{
+  "python": "3.13.16",
+  "tensorflow": "2.21.0",
+  "keras": "3.15.1",
+  "numpy": "2.5.3",
+  "scikit_image": "0.26.0",
+  "python_executable": "/home/devnomso/fyp-tensorflow/bin/python",
+  "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.43",
+  "processor": "",
+  "devices": [
+    "PhysicalDevice(name='/physical_device:CPU:0', device_type='CPU')"
+  ]
+}

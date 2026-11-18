@@ -1,0 +1,12 @@
+{
+  "run_id": "adam_huber_lr_1e-04",
+  "optimizer": "Adam",
+  "loss": "Huber",
+  "learning_rate": 0.0001,
+  "status": "completed",
+  "validation_mse": 0.05894044041633606,
+  "validation_psnr": 12.295859336853027,
+  "epochs_run": 6,
+  "training_time_seconds": 255.80241308303084,
+  "error": ""
+}

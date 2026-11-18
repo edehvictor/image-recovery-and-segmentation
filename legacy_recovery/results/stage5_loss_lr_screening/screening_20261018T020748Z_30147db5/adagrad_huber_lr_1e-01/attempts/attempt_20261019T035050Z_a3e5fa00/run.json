@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "attempt": "attempt_20261019T035050Z_a3e5fa00",
+  "restart_reason": "FileNotFoundError: [Errno 2] No such file or directory: '/mnt/c/Users/HP ELITEBOOK 830 G8/Desktop/FINAL YEAR PROJECT/image-recovery-project/results/stage5_loss_lr_screening/screening_20261018T020748Z_30147db5/adagrad_huber_lr_1e-01/run.json'",
+  "result": {
+    "run_id": "adagrad_huber_lr_1e-01",
+    "optimizer": "Adagrad",
+    "loss": "Huber",
+    "learning_rate": 0.1,
+    "fold": 1,
+    "run_status": "completed",
+    "best_epoch": 50,
+    "stopping_epoch": 50,
+    "completed_epochs": 50,
+    "best_validation_loss": 0.0002388365101069212,
+    "restored_validation_loss": 0.0002388365101069212,
+    "best_validation_mse_at_epoch": 0.0005422358517535031,
+    "validation_mse": 0.0005422358517535031,
+    "validation_rmse": 0.023285958252850646,
+    "validation_nrmse_percent": 2.3285958252850647,
+    "validation_psnr": 32.658234944063075,
+    "validation_ssim": 0.8782513963284787,
+    "training_time_seconds": 2322.2061646330003,
+    "initial_weights_sha256": "3d8af7fb3e7d315c2358a71bef8213afa7e6e29217099ad230fe89951a531926",
+    "split_sha256": "b7cca054d0978d0ebeb4a87ab85da4421771e18bdd0fc430e045519ee0a30caf",
+    "protocol_sha256": "3407fbcb3e5210b270ef19899f0a46568a6f12adf974dab5ba32768a8b64b0c7",
+    "optimizer_definition_sha256": "66f34294d6e57c536d430d0fcddc6e2560cdf24b63c513f060b0c306e10b4800",
+    "loss_definition_sha256": "ce8872b75b202d0b4922a71375165cedaebf8c73a0bb40591a22abb6f18f3f5a",
+    "history_file": "adagrad_huber_lr_1e-01/attempts/attempt_20261019T035050Z_a3e5fa00/history.csv",
+    "history_json_file": "adagrad_huber_lr_1e-01/attempts/attempt_20261019T035050Z_a3e5fa00/history.json",
+    "history_file_sha256": "297061f55e68938793ea44f2eaede6ffd0c78ed6f2403dd2c0dd311e1a52a4be",
+    "history_json_file_sha256": "c7ff1f97e8312f2d2c21b95cf6b2d75c120b2512ab3b2ce42133896e24185848",
+    "best_weights_file": "adagrad_huber_lr_1e-01/attempts/attempt_20261019T035050Z_a3e5fa00/best_weights.npz",
+    "best_weights_file_sha256": "945a9451974f5bcda750f2524d250fd5cc2e81828e568c55d4bc2e16b02e8a97",
+    "best_model_weights_sha256": "5d5145d0106926ed82649f71e4f75839b383a7ff932887977f7986c3a514a06c",
+    "error": ""
+  },
+  "optimizer_definition": {
+    "class": "Adagrad",
+    "settings": {
+      "learning_rate": 0.10000000149011612,
+      "weight_decay": null,
+      "clipnorm": null,
+      "global_clipnorm": null,
+      "clipvalue": null,
+      "use_ema": false,
+      "ema_momentum": 0.99,
+      "ema_overwrite_frequency": null,
+      "loss_scale_factor": null,
+      "gradient_accumulation_steps": null,
+      "initial_accumulator_value": 0.1,
+      "epsilon": 1e-07
+    }
+  },
+  "loss_definition": {
+    "class": "Huber",
+    "settings": {
+      "reduction": "sum_over_batch_size"
+    },
+    "huber_delta": 0.1
+  },
+  "finished_at_utc": "2026-10-19T04:29:46.807129+00:00"
+}
